@@ -2294,7 +2294,12 @@ document.addEventListener('DOMContentLoaded', () => {
     restoreLocation();
     initSwiper();
     initFeaturedSection();
-    setTimeout(() => showLocationModal(), 1000);
+    setTimeout(() => {
+      if (!localStorage.getItem('locationPromptShown')) {
+        showLocationModal();
+        localStorage.setItem('locationPromptShown', 'true');
+      }
+    }, 1000);
   } else if (page === 'drug-detail') {
     renderDrugDetail(parseInt(getParam('id')) || 1);
   } else if (page === 'merchant-detail') {
