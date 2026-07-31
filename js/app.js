@@ -625,7 +625,7 @@ function renderFeaturedDrugs() {
   const list = currentFeaturedCategory === 'all'
     ? drugsData
     : drugsData.filter(d => d.category === currentFeaturedCategory);
-  // 每个 TAB 最多展示 4 个服务，保证首屏能同时看到服务与下方商家
+  // 每个 TAB 最多展示 4 个服务，保证首屏能同时看到服务与下方诊所
   const display = list.slice(0, 4);
   grid.innerHTML = '';
   display.forEach(d => {
@@ -686,7 +686,7 @@ function renderDrugDetail(id) {
   const nearbySection = document.querySelector('#drugDetailPage .nearby-merchant-section');
   if (nearbySection) {
     const availableMerchants = merchantsData.filter(m => drug.merchants && drug.merchants.includes(m.id));
-    let html = '<div class="drug-info-title">附近有货商家</div>';
+    let html = '<div class="drug-info-title">附近有货诊所</div>';
     availableMerchants.forEach(m => {
       html += '<div class="nearby-merchant-item" onclick="goMerchantDetail(' + m.id + ')">'
         + '<div class="nearby-merchant-avatar">' + m.icon + '</div>'
@@ -699,7 +699,7 @@ function renderDrugDetail(id) {
         + '<div class="nearby-merchant-stock">有货</div>'
         + '</div></div>';
     });
-    html += '<div class="loading-more">— 已显示全部商家 —</div>';
+    html += '<div class="loading-more">— 已显示全部诊所 —</div>';
     nearbySection.innerHTML = html;
   }
 
@@ -707,7 +707,7 @@ function renderDrugDetail(id) {
 }
 
 // 购药流程副标题（mock 文本，后续接真实接口替换）
-const DRUG_DETAIL_SUBTITLE = '服务流程：提交预约单—联系商家—预约取药';
+const DRUG_DETAIL_SUBTITLE = '服务流程：提交预约单—联系诊所—预约取药';
 function renderDrugDetailFlow() {
   const el = document.getElementById('drugDetailSub');
   if (el) el.textContent = DRUG_DETAIL_SUBTITLE;
@@ -715,13 +715,13 @@ function renderDrugDetailFlow() {
 
 function goMerchantDetail(id) { location.href = 'merchant-detail.html?id=' + id; }
 
-// 商家详情渲染（在 merchant-detail.html 加载时调用）
+// 诊所详情渲染（在 merchant-detail.html 加载时调用）
 function renderMerchantDetail(id) {
   currentMerchantId = id;
   const merchant = merchantsData.find(m => m.id === id) || merchantsData[0];
   const hero = document.querySelector('#merchantDetailPage .merchant-detail-hero');
   if (hero) hero.innerHTML = merchant.hero
-    ? '<img class="merchant-detail-hero-img" src="' + merchant.hero + '" alt="商家门头照" onclick="openImagePreview(\'' + merchant.hero + '\')">'
+    ? '<img class="merchant-detail-hero-img" src="' + merchant.hero + '" alt="诊所门头照" onclick="openImagePreview(\'' + merchant.hero + '\')">'
     : merchant.icon;
 
   const card = document.querySelector('#merchantDetailPage .merchant-detail-card');
@@ -795,7 +795,7 @@ function doMerchantLogin() {
   const phone = document.getElementById('merchantLoginPhone');
   const pwd = document.getElementById('merchantLoginPwd');
   const phoneVal = phone ? phone.value.trim() : '';
-  if (!phoneVal || !/^1[3-9]\d{9}$/.test(phoneVal)) { showToast('请输入正确的商家手机号'); return; }
+  if (!phoneVal || !/^1[3-9]\d{9}$/.test(phoneVal)) { showToast('请输入正确的诊所手机号'); return; }
   if (!pwd || !pwd.value) { showToast('请输入登录密码'); return; }
   const acc = MERCHANT_ACCOUNTS.find(a => a.phone === phoneVal);
   if (!acc || getMerchantPassword(acc.id) !== pwd.value) {
@@ -807,7 +807,7 @@ function doMerchantLogin() {
   resetMerchantFail();
   const m = merchantsData.find(x => x.id === acc.id);
   setMerchantSession({ id: acc.id, name: m ? m.name : '', phone: phoneVal });
-  showToast('商家登录成功');
+  showToast('诊所登录成功');
   setTimeout(() => { location.href = 'merchant.html'; }, 1000);
 }
 
@@ -817,15 +817,15 @@ function doMerchantCodeLogin() {
   const phone = document.getElementById('merchantLoginPhone');
   const code = document.getElementById('merchantLoginCode');
   const phoneVal = phone ? phone.value.trim() : '';
-  if (!phoneVal || !/^1[3-9]\d{9}$/.test(phoneVal)) { showToast('请输入正确的商家手机号'); return; }
+  if (!phoneVal || !/^1[3-9]\d{9}$/.test(phoneVal)) { showToast('请输入正确的诊所手机号'); return; }
   if (!code || !/^\d{4,6}$/.test(code.value.trim())) { showToast('请输入验证码'); return; }
   const acc = MERCHANT_ACCOUNTS.find(a => a.phone === phoneVal);
-  if (!acc) { showToast('该手机号未注册商家账号'); return; }
+  if (!acc) { showToast('该手机号未注册诊所账号'); return; }
   // 验证码登录（原型中任意验证码通过）
   resetMerchantFail();
   const m = merchantsData.find(x => x.id === acc.id);
   setMerchantSession({ id: acc.id, name: m ? m.name : '', phone: phoneVal });
-  showToast('商家登录成功');
+  showToast('诊所登录成功');
   setTimeout(() => { location.href = 'merchant.html'; }, 1000);
 }
 
@@ -833,7 +833,7 @@ let merchantCodeTimer = null;
 function sendMerchantCode() {
   const phone = document.getElementById('merchantLoginPhone');
   const phoneVal = phone ? phone.value.trim() : '';
-  if (!phoneVal || !/^1[3-9]\d{9}$/.test(phoneVal)) { showToast('请输入正确的商家手机号'); return; }
+  if (!phoneVal || !/^1[3-9]\d{9}$/.test(phoneVal)) { showToast('请输入正确的诊所手机号'); return; }
   if (merchantCodeTimer) return;
   let sec = 60;
   showToast('验证码已发送（演示：任意验证码即可）');
@@ -888,7 +888,7 @@ function handleSearch() {
 
     let html = '';
     if (matchedMerchants.length > 0) {
-      html += '<div style="font-size:14px;font-weight:600;margin-bottom:8px;">相关商家</div>';
+      html += '<div style="font-size:14px;font-weight:600;margin-bottom:8px;">相关诊所</div>';
       matchedMerchants.forEach(m => {
         html += '<div style="display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);cursor:pointer;" onclick="goMerchantDetail(' + m.id + ')">'
           + '<div style="width:48px;height:48px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:22px;background:' + m.iconBg + ';flex-shrink:0;">' + m.icon + '</div>'
@@ -975,7 +975,7 @@ function prefillAppointment() {
 function showMerchantPicker() {
   const drug = drugsData.find(d => d.id === currentDrugId);
   const inStockIds = (drug && drug.merchants) ? drug.merchants : [];
-  // 离我最近的 5 个商家（按 distNum 升序）
+  // 离我最近的 5 个诊所（按 distNum 升序）
   const nearest = merchantsData.slice().sort((a, b) => a.distNum - b.distNum).slice(0, 5);
   let html = '<div class="merchant-picker-hint">已按距离为您推荐最近的 5 家门店，仅「有货」门店可预约</div>';
   nearest.forEach(m => {
@@ -1332,8 +1332,8 @@ function restoreLocation() {
   try { addr = sessionStorage.getItem('userLocation') || ''; } catch(e) {}
   t.textContent = addr || '上海市浦东新区张杨路';
 }
-// ===== Merchant Portal (商家端) =====
-const PLATFORM_SETTINGS = { priceVisible: true }; // 平台是否展示商家价格（商家不可自行决定）
+// ===== Merchant Portal (诊所端) =====
+const PLATFORM_SETTINGS = { priceVisible: true }; // 平台是否展示诊所价格（诊所不可自行决定）
 
 // 平台商品库价格策略：建议销售价 / 最低限价（按 drug id）
 const PRODUCT_PRICE_MAP = {
@@ -1347,7 +1347,7 @@ const PRODUCT_PRICE_MAP = {
 };
 const MERCHANT_CATEGORY_LABELS = { immunoglobulin: '免疫球蛋白', albumin: '人血白蛋白', factor: '凝血因子', vaccine: '疫苗制品' };
 
-// 平台为商家创建的独立账号：手机号 + 初始密码（由平台设置）
+// 平台为诊所创建的独立账号：手机号 + 初始密码（由平台设置）
 const MERCHANT_ACCOUNTS = [
   { id: 1, phone: '13800138000', password: '123456' },
   { id: 2, phone: '13800138001', password: '123456' },
@@ -1392,7 +1392,7 @@ function goMerchantStore() { location.href = 'merchant-store.html'; }
 function goMerchantChangePassword() { location.href = 'merchant-change-password.html'; }
 function merchantLogout() { clearMerchantSession(); resetMerchantFail(); location.href = 'profile.html'; }
 
-// ===== 商家在售商品（上下架 + 本店售价）=====
+// ===== 诊所在售商品（上下架 + 本店售价）=====
 function getMerchantOnsale(id) { try { const r = localStorage.getItem('sygo_merchant_onsale_' + id); if (r) return JSON.parse(r); } catch (e) {} return null; }
 function saveMerchantOnsale(id, list) { try { localStorage.setItem('sygo_merchant_onsale_' + id, JSON.stringify(list)); } catch (e) {} }
 function seedMerchantOnsale(id) {
@@ -1426,7 +1426,7 @@ function batchToggleMerchantProducts(id, drugIds, on) {
   saveMerchantOnsale(id, list);
 }
 
-// ===== 商家预约订单 =====
+// ===== 诊所预约订单 =====
 const MERCHANT_ORDER_NAMES = ['张伟', '王芳', '李娜', '刘洋', '陈静', '杨光', '赵磊', '黄敏', '周强', '吴婷', '孙丽', '马超'];
 function getMerchantOrders(id) { try { const r = localStorage.getItem('sygo_merchant_orders_' + id); if (r) return JSON.parse(r); } catch (e) {} return null; }
 function saveMerchantOrders(id, list) { try { localStorage.setItem('sygo_merchant_orders_' + id, JSON.stringify(list)); } catch (e) {} }
@@ -1452,12 +1452,12 @@ function seedMerchantOrders(id) {
 }
 function getOrdersForMerchant(id) { let list = getMerchantOrders(id); if (!list) list = seedMerchantOrders(id); return list || []; }
 
-// ===== 商家首页仪表盘 =====
+// ===== 诊所首页仪表盘 =====
 function renderMerchantHome() {
   const s = requireMerchant(); if (!s) return;
   const m = merchantsData.find(x => x.id === s.id);
   const nameEl = document.getElementById('merchantHomeName');
-  if (nameEl) nameEl.textContent = m ? m.name : (s.name || '商家');
+  if (nameEl) nameEl.textContent = m ? m.name : (s.name || '诊所');
   const orders = getOrdersForMerchant(s.id);
   const now = new Date();
   const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
@@ -1470,7 +1470,7 @@ function renderMerchantHome() {
   set('merchantStatDay', day); set('merchantStatWeek', week); set('merchantStatMonth', month);
 }
 
-// ===== 商家预约订单列表（时间范围筛选）=====
+// ===== 诊所预约订单列表（时间范围筛选）=====
 let merchantOrderStart = '', merchantOrderEnd = '';
 let merchantOrderKeyword = '';
 function renderMerchantOrders() {
@@ -1583,7 +1583,7 @@ function searchMerchantOrder() {
   renderMerchantOrders();
 }
 
-// ===== 商家预约统计（周期 + 维度）=====
+// ===== 诊所预约统计（周期 + 维度）=====
 let merchantStatPeriod = 'day';
 let merchantStatDim = 'order';
 function renderMerchantStats() {
@@ -1626,7 +1626,7 @@ function renderMerchantStats() {
 function setMerchantStatPeriod(p) { merchantStatPeriod = p; renderMerchantStats(); }
 function setMerchantStatDim(d) { merchantStatDim = d; renderMerchantStats(); }
 
-// ===== 商家商品管理 =====
+// ===== 诊所商品管理 =====
 let merchantProductKeyword = '';
 let merchantProductCategory = '';
 let merchantProductSelected = [];
@@ -1724,7 +1724,7 @@ function merchantBatchOff() { const s = requireMerchant(); if (!s || !merchantPr
 function searchMerchantProduct() { const el = document.getElementById('merchantProductSearch'); merchantProductKeyword = el ? el.value.trim() : ''; renderMerchantProducts(); }
 function setMerchantProductCategory(cat) { merchantProductCategory = cat; document.querySelectorAll('.m-prod-cat-tab').forEach(el => el.classList.toggle('active', el.dataset.cat === cat)); renderMerchantProducts(); }
 
-// ===== 商家店铺管理（只读）=====
+// ===== 诊所店铺管理（只读）=====
 function renderMerchantStore() {
   const s = requireMerchant(); if (!s) return;
   const m = merchantsData.find(x => x.id === s.id); if (!m) return;
@@ -1735,7 +1735,7 @@ function renderMerchantStore() {
   if (certWrap && m.certs) certWrap.innerHTML = m.certs.map((c, i) => `<img class="store-cert-thumb" src="${c}" onclick="openImagePreview('${c}')" alt="资质${i + 1}">`).join('');
 }
 
-// ===== 商家修改密码 =====
+// ===== 诊所修改密码 =====
 function doChangeMerchantPassword() {
   const s = requireMerchant(); if (!s) return;
   const oldEl = document.getElementById('cpOld'); const newEl = document.getElementById('cpNew'); const confirmEl = document.getElementById('cpConfirm');

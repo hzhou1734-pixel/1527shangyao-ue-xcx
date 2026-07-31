@@ -676,7 +676,7 @@ function renderFeaturedDrugs() {
   const list = currentFeaturedCategory === 'all'
     ? drugsData
     : drugsData.filter(d => d.category === currentFeaturedCategory);
-  // 每个 TAB 最多展示 4 个服务，保证首屏能同时看到服务与下方商家
+  // 每个 TAB 最多展示 4 个服务，保证首屏能同时看到服务与下方诊所
   const display = list.slice(0, 4);
   grid.innerHTML = '';
   display.forEach(d => {
@@ -737,7 +737,7 @@ function goDrugDetail(id) {
   const nearbySection = document.querySelector('#drugDetailPage .nearby-merchant-section');
   const nearbyItems = nearbySection.querySelectorAll('.nearby-merchant-item');
   const availableMerchants = merchantsData.filter(m => drug.merchants && drug.merchants.includes(m.id));
-  let html = '<div class="drug-info-title">附近有货商家</div>';
+  let html = '<div class="drug-info-title">附近有货诊所</div>';
   availableMerchants.forEach(m => {
     html += '<div class="nearby-merchant-item" onclick="goMerchantDetail(' + m.id + ')">'
       + '<div class="nearby-merchant-avatar">' + m.icon + '</div>'
@@ -750,7 +750,7 @@ function goDrugDetail(id) {
       + '<div class="nearby-merchant-stock">有货</div>'
       + '</div></div>';
   });
-  html += '<div class="loading-more">— 已显示全部商家 —</div>';
+  html += '<div class="loading-more">— 已显示全部诊所 —</div>';
   nearbySection.innerHTML = html;
 
   showPage('drugDetail');
@@ -883,7 +883,7 @@ function handleSearch() {
 
     let html = '';
     if (matchedMerchants.length > 0) {
-      html += '<div style="font-size:14px;font-weight:600;margin-bottom:8px;">相关商家</div>';
+      html += '<div style="font-size:14px;font-weight:600;margin-bottom:8px;">相关诊所</div>';
       matchedMerchants.forEach(m => {
         html += '<div style="display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);cursor:pointer;" onclick="goMerchantDetail(' + m.id + ')">'
           + '<div style="width:48px;height:48px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:22px;background:' + m.iconBg + ';flex-shrink:0;">' + m.icon + '</div>'
@@ -956,7 +956,7 @@ function prefillAppointment() {
 function showMerchantPicker() {
   const drug = drugsData.find(d => d.id === currentDrugId);
   const inStockIds = (drug && drug.merchants) ? drug.merchants : [];
-  // 离我最近的 5 个商家（按 distNum 升序）
+  // 离我最近的 5 个诊所（按 distNum 升序）
   const nearest = merchantsData.slice().sort((a, b) => a.distNum - b.distNum).slice(0, 5);
   let html = '<div class="merchant-picker-hint">已按距离为您推荐最近的 5 家门店，仅「有货」门店可预约</div>';
   nearest.forEach(m => {
@@ -1113,7 +1113,7 @@ function closeVerify() {
 }
 function doVerify() {
   document.getElementById('verifyModal').classList.remove('show');
-  alert('✅ 核销成功！您已在商家范围内，订单已标记为已到店。');
+  alert('✅ 核销成功！您已在诊所范围内，订单已标记为已到店。');
 }
 
 // ===== QR Code =====

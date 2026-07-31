@@ -1041,7 +1041,7 @@
   .order-date-trigger { flex: 1; min-width: 0; height: 34px; display: flex; align-items: center; padding: 0 10px; border: 1px solid var(--border); border-radius: 8px; font-size: 13px; background: #fff; color: var(--text); cursor: pointer; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .order-date-trigger:active { background: var(--bg); }
 
-  /* ===== 商家订单：手机端底部日历区间选择器 ===== */
+  /* ===== 诊所订单：手机端底部日历区间选择器 ===== */
   .m-date-picker { position: fixed; inset: 0; z-index: 300; display: none; }
   .m-date-picker.show { display: block; }
   .m-date-mask { position: absolute; inset: 0; background: rgba(0,0,0,0.45); }
@@ -1971,7 +1971,7 @@
   .btn-batch.on { background: var(--primary); }
   .btn-batch.off { background: var(--red); }
 
-  /* ===== 商家调价弹窗（底部弹层） ===== */
+  /* ===== 诊所调价弹窗（底部弹层） ===== */
   .m-price-modal-mask { position: fixed; inset: 0; background: rgba(0,0,0,.45); display: none; align-items: flex-end; justify-content: center; z-index: 1000; }
   .m-price-modal-mask.show { display: flex; }
   .m-price-modal { width: 100%; max-width: 480px; background: #fff; border-radius: 16px 16px 0 0; padding: 20px 16px calc(20px + env(safe-area-inset-bottom)); animation: mPriceUp .25s ease; }

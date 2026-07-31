@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""生成商家门头照(store1~8.svg)与资质证书(cert-*.svg)占位图到 images/。
+"""生成诊所门头照(store1~8.svg)与资质证书(cert-*.svg)占位图到 images/。
 这些 SVG 是原型占位图，正式上线时把 merchantsData 的 hero/certs 换成真实图片 URL 即可。
 """
 import os
@@ -8,7 +8,7 @@ BASE = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 IMG = os.path.join(BASE, 'images')
 os.makedirs(IMG, exist_ok=True)
 
-# (id, 商家名) —— 与 js/app.js 的 merchantsData 保持一致
+# (id, 诊所名) —— 与 js/app.js 的 merchantsData 保持一致
 MERCHANTS = [
     (1, '仁济诊所(浦东店)'),
     (2, '国大诊所(徐汇店)'),

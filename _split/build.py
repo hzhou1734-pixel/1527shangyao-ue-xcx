@@ -146,7 +146,7 @@ oldC = """function goDrugDetail(id) {
   const nearbySection = document.querySelector('#drugDetailPage .nearby-merchant-section');
   const nearbyItems = nearbySection.querySelectorAll('.nearby-merchant-item');
   const availableMerchants = merchantsData.filter(m => drug.merchants && drug.merchants.includes(m.id));
-  let html = '<div class="drug-info-title">附近有货商家</div>';
+  let html = '<div class="drug-info-title">附近有货诊所</div>';
   availableMerchants.forEach(m => {
     html += '<div class="nearby-merchant-item" onclick="goMerchantDetail(' + m.id + ')">'
       + '<div class="nearby-merchant-avatar">' + m.icon + '</div>'
@@ -159,7 +159,7 @@ oldC = """function goDrugDetail(id) {
       + '<div class="nearby-merchant-stock">有货</div>'
       + '</div></div>';
   });
-  html += '<div class="loading-more">— 已显示全部商家 —</div>';
+  html += '<div class="loading-more">— 已显示全部诊所 —</div>';
   nearbySection.innerHTML = html;
 
   showPage('drugDetail');
@@ -195,7 +195,7 @@ function renderDrugDetail(id) {
   const nearbySection = document.querySelector('#drugDetailPage .nearby-merchant-section');
   if (nearbySection) {
     const availableMerchants = merchantsData.filter(m => drug.merchants && drug.merchants.includes(m.id));
-    let html = '<div class="drug-info-title">附近有货商家</div>';
+    let html = '<div class="drug-info-title">附近有货诊所</div>';
     availableMerchants.forEach(m => {
       html += '<div class="nearby-merchant-item" onclick="goMerchantDetail(' + m.id + ')">'
         + '<div class="nearby-merchant-avatar">' + m.icon + '</div>'
@@ -208,7 +208,7 @@ function renderDrugDetail(id) {
         + '<div class="nearby-merchant-stock">有货</div>'
         + '</div></div>';
     });
-    html += '<div class="loading-more">— 已显示全部商家 —</div>';
+    html += '<div class="loading-more">— 已显示全部诊所 —</div>';
     nearbySection.innerHTML = html;
   }
 }"""
@@ -256,7 +256,7 @@ oldD = """function goMerchantDetail(id) {
 }"""
 newD = """function goMerchantDetail(id) { location.href = 'merchant-detail.html?id=' + id; }
 
-// 商家详情渲染（在 merchant-detail.html 加载时调用）
+// 诊所详情渲染（在 merchant-detail.html 加载时调用）
 function renderMerchantDetail(id) {
   currentMerchantId = id;
   const merchant = merchantsData.find(m => m.id === id) || merchantsData[0];
