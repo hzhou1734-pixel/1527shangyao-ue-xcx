@@ -625,7 +625,7 @@ function renderFeaturedDrugs() {
   const list = currentFeaturedCategory === 'all'
     ? drugsData
     : drugsData.filter(d => d.category === currentFeaturedCategory);
-  // 每个 TAB 最多展示 4 个药品，保证首屏能同时看到药品与下方商家
+  // 每个 TAB 最多展示 4 个服务，保证首屏能同时看到服务与下方商家
   const display = list.slice(0, 4);
   grid.innerHTML = '';
   display.forEach(d => {
@@ -657,7 +657,7 @@ function initFeaturedSection() {
 
 function goDrugDetail(id) { location.href = 'drug-detail.html?id=' + id; }
 
-// 药品详情渲染（在 drug-detail.html 加载时调用）
+// 服务详情渲染（在 drug-detail.html 加载时调用）
 function renderDrugDetail(id) {
   currentDrugId = id;
   const drug = drugsData.find(d => d.id === id) || drugsData[0];
@@ -677,7 +677,7 @@ function renderDrugDetail(id) {
   const placeholderImgs = ['drug1.jpg','drug2.jpg','drug3.jpg','drug4.jpg','drug5.jpg','drug6.jpg'];
   let galleryHtml = '<div class="drug-intro-gallery">';
   placeholderImgs.forEach(src => {
-    galleryHtml += '<div class="drug-intro-thumb"><img src="images/' + src + '" alt="药品占位图" loading="lazy"></div>';
+    galleryHtml += '<div class="drug-intro-thumb"><img src="images/' + src + '" alt="服务占位图" loading="lazy"></div>';
   });
   galleryHtml += '</div>';
   const introEl = document.getElementById('drugDetailIntro');
@@ -737,7 +737,7 @@ function renderMerchantDetail(id) {
   const drugSection = document.querySelector('#merchantDetailPage .nearby-merchant-section');
   if (drugSection) {
     const availableDrugs = drugsData.filter(d => merchant.drugs && merchant.drugs.includes(d.id));
-    let html = '<div class="drug-info-title">在售药品</div>';
+    let html = '<div class="drug-info-title">在售服务</div>';
     availableDrugs.forEach(d => {
       const imgHtml = d.img
         ? '<div class="nearby-merchant-avatar"><img src="' + d.img + '" alt=""></div>'
@@ -899,7 +899,7 @@ function handleSearch() {
       });
     }
     if (matchedDrugs.length > 0) {
-      html += '<div style="font-size:14px;font-weight:600;margin:12px 0 8px;">相关药品</div>';
+      html += '<div style="font-size:14px;font-weight:600;margin:12px 0 8px;">相关服务</div>';
       matchedDrugs.forEach(d => {
         const imgHtml = d.img
           ? '<div style="width:60px;height:60px;border-radius:8px;background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;border:1px solid var(--border);"><img src="' + d.img + '" style="width:100%;height:100%;object-fit:contain;padding:2px;"></div>'
@@ -1002,7 +1002,7 @@ function selectMerchant(id) {
   if (!merchant) return;
   const drug = drugsData.find(d => d.id === currentDrugId);
   if (drug && drug.merchants && !drug.merchants.includes(id)) {
-    showToast('该门店暂无可预约药品');
+    showToast('该门店暂无可预约服务');
     return;
   }
   currentMerchantId = id;
@@ -1068,7 +1068,7 @@ function submitAppointment() {
   saveMyAppointments(list);
 
   document.getElementById('successDetail').innerHTML = `
-    您的预约已提交成功！<br>预约单号：<span style="color:var(--primary);font-weight:600;">${orderNo}</span><br>药品数量：${qty} 份<br>请按时到店核销
+    您的预约已提交成功！<br>预约单号：<span style="color:var(--primary);font-weight:600;">${orderNo}</span><br>服务数量：${qty} 份<br>请按时到店核销
   `;
   document.getElementById('successModal').classList.add('show');
 }
@@ -1317,10 +1317,10 @@ function showAbout() { location.href = 'about.html'; }
 function showPrivacy() { location.href = 'privacy.html'; }
 function showUserAgreement() { location.href = 'agreement.html'; }
 function showAboutIntro() {
-  alert('上药GO是上海医药旗下便民找药平台，致力于为患者提供血液制品等特殊药品的在线查询与预约购药服务。我们与上海地区正规资质诊所深度合作，确保药品来源正规、品质放心。');
+  alert('上药GO是上海医药旗下便民找药平台，致力于为患者提供血液制品等特殊服务的在线查询与预约购药服务。我们与上海地区正规资质诊所深度合作，确保服务来源正规、品质放心。');
 }
 function showOfficialAccount() {
-  alert('请搜索微信公众号"上药GO"关注我们，获取最新药品资讯和优惠活动信息。');
+  alert('请搜索微信公众号"上药GO"关注我们，获取最新服务资讯和优惠活动信息。');
 }
 function cancelSearch() { location.href = 'index.html'; }
 
@@ -1411,7 +1411,7 @@ function merchantToggleOnsale(id, drugId) {
 function setMerchantProductPrice(id, drugId, price) {
   const list = getOnsaleForMerchant(id);
   const item = list.find(x => x.drugId === drugId);
-  if (!item) return { ok: false, msg: '该药品未上架' };
+  if (!item) return { ok: false, msg: '该服务未上架' };
   const min = (PRODUCT_PRICE_MAP[drugId] || { min: 0 }).min;
   if (!(price >= min)) return { ok: false, msg: '售价不能低于平台最低限价 ¥' + min };
   item.storePrice = price; saveMerchantOnsale(id, list); return { ok: true };
@@ -1445,7 +1445,7 @@ function seedMerchantOrders(id) {
       orderNo: 'YY' + (now - i * 1000).toString().slice(-10),
       userName: MERCHANT_ORDER_NAMES[i % MERCHANT_ORDER_NAMES.length],
       phone: '139' + String(10000000 + (i * 137) % 90000000).padStart(8, '0'),
-      drugName: drug ? drug.name : '药品', drugId: drugId, qty: 1 + (i % 3), time: time, createdAt: created.getTime()
+      drugName: drug ? drug.name : '服务', drugId: drugId, qty: 1 + (i % 3), time: time, createdAt: created.getTime()
     });
   }
   saveMerchantOrders(id, orders); return orders;
@@ -1493,7 +1493,7 @@ function renderMerchantOrders() {
         <div class="m-order-cell"><span class="k">用户</span><b class="v">${escHtml(o.userName)}</b></div>
         <div class="m-order-cell"><span class="k">手机</span><b class="v">${escHtml(o.phone)}</b><a class="m-call-btn" href="tel:${escHtml(o.phone)}" onclick="event.stopPropagation()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></a></div>
         <div class="m-order-cell"><span class="k">预约时间</span><b class="v">${escHtml(o.time)}</b></div>
-        <div class="m-order-cell"><span class="k">药品</span><b class="v">${escHtml(o.drugName)}</b></div>
+        <div class="m-order-cell"><span class="k">服务</span><b class="v">${escHtml(o.drugName)}</b></div>
       </div>
     </div>`).join('');
 }
@@ -1647,7 +1647,7 @@ function renderMerchantProducts() {
     if (cat && d.category !== cat) return false;
     return true;
   });
-  if (!list.length) { listEl.innerHTML = '<div class="empty-tip">未找到匹配药品</div>'; return; }
+  if (!list.length) { listEl.innerHTML = '<div class="empty-tip">未找到匹配服务</div>'; return; }
   listEl.innerHTML = list.map(d => {
     const on = d.id in onsaleMap; const price = onsaleMap[d.id];
     const min = (PRODUCT_PRICE_MAP[d.id] || { min: 0 }).min;
@@ -1792,10 +1792,10 @@ const ARTICLES = [
   { id:'a6', title:'重组人凝血因子Ⅷ在血友病A治疗中的应用', author:'血液病药学组', date:'2026-04-22', cat:'c2-1-2', emoji:'🔬', bg:'#E0F2FE', summary:'比较重组与血浆源凝血因子Ⅷ的药效与免疫原性，规范按需与预防替代治疗策略。', attachments:[{name:'凝血因子VIII应用.pdf', file:'articles/a6.pdf'}] },
   { id:'a7', title:'慢性肾病患者药代动力学特征与剂量调整', author:'临床药理学杂志', date:'2026-05-05', cat:'c2-2-1', emoji:'📈', bg:'#FEF3F2', summary:'阐述肾功能减退对药物清除的影响，建立基于估算肾小球滤过率的剂量调整框架与监护要点。', attachments:[{name:'CKD剂量调整.pdf', file:'articles/a7.pdf'}] },
   { id:'a8', title:'药物基因组学指导华法林个体化用药专家意见', author:'精准药学联盟', date:'2026-04-12', cat:'c2-2-2', emoji:'🧾', bg:'#ECFDF5', summary:'基于CYP2C9与VKORC1基因型制定华法林初始剂量算法，降低出血与血栓风险。', attachments:[{name:'华法林个体化用药.pdf', file:'articles/a8.pdf'}] },
-  { id:'a9', title:'药品经营质量管理规范(GSP)现场检查要点解读', author:'药品监管科学研究会', date:'2026-03-30', cat:'c3-1-1', emoji:'📋', bg:'#F0F9FF', summary:'逐条解读药品经营质量管理规范对冷链、储存与追溯的要求，梳理零售药店合规自查清单。', attachments:[{name:'GSP检查要点.pdf', file:'articles/a9.pdf'}] },
+  { id:'a9', title:'服务经营质量管理规范(GSP)现场检查要点解读', author:'服务监管科学研究会', date:'2026-03-30', cat:'c3-1-1', emoji:'📋', bg:'#F0F9FF', summary:'逐条解读服务经营质量管理规范对冷链、储存与追溯的要求，梳理零售药店合规自查清单。', attachments:[{name:'GSP检查要点.pdf', file:'articles/a9.pdf'}] },
   { id:'a10', title:'处方审核管理办法与常见不合理处方分析', author:'药事管理专业委员会', date:'2026-03-18', cat:'c3-1-2', emoji:'📝', bg:'#FFF7ED', summary:'结合处方审核规范，归纳配伍禁忌、超剂量等典型问题处方并给出干预模板。', attachments:[{name:'处方审核分析.pdf', file:'articles/a10.pdf'}] },
-  { id:'a11', title:'新版国家医保药品目录调整趋势分析', author:'医保政策研究中心', date:'2026-02-25', cat:'c3-2-1', emoji:'🏥', bg:'#F5F3FF', summary:'分析近年医保目录谈判准入特征，解读创新药补短板惠民生的遴选逻辑。', attachments:[{name:'医保目录调整.pdf', file:'articles/a11.pdf'}] },
-  { id:'a12', title:'药品集中带量采购对临床用药结构的影响', author:'卫生经济与政策组', date:'2026-02-10', cat:'c3-2-2', emoji:'📊', bg:'#ECFEFF', summary:'基于带量采购落地数据，评估中选药品替代、费用节约与供应保障情况。', attachments:[{name:'带量采购影响.pdf', file:'articles/a12.pdf'}] },
+  { id:'a11', title:'新版国家医保服务目录调整趋势分析', author:'医保政策研究中心', date:'2026-02-25', cat:'c3-2-1', emoji:'🏥', bg:'#F5F3FF', summary:'分析近年医保目录谈判准入特征，解读创新药补短板惠民生的遴选逻辑。', attachments:[{name:'医保目录调整.pdf', file:'articles/a11.pdf'}] },
+  { id:'a12', title:'服务集中带量采购对临床用药结构的影响', author:'卫生经济与政策组', date:'2026-02-10', cat:'c3-2-2', emoji:'📊', bg:'#ECFEFF', summary:'基于带量采购落地数据，评估中选服务替代、费用节约与供应保障情况。', attachments:[{name:'带量采购影响.pdf', file:'articles/a12.pdf'}] },
 ];
 
 function escapeHTML(s){ return String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }

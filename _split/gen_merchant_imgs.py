@@ -91,8 +91,8 @@ def main():
         print('wrote', os.path.relpath(p, BASE))
     certs = [
         ('cert-business.svg', '营业执照', '91310000XXXXXXXXXX'),
-        ('cert-pharma.svg', '药品经营许可证', '沪证字 YP2024XXXX'),
-        ('cert-gmp.svg', '药品GSP认证', 'GSP-2024-XXXXXX'),
+        ('cert-pharma.svg', '服务经营许可证', '沪证字 YP2024XXXX'),
+        ('cert-gmp.svg', '服务GSP认证', 'GSP-2024-XXXXXX'),
     ]
     for fn, title, code in certs:
         p = os.path.join(IMG, fn)

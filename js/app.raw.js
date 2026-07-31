@@ -676,7 +676,7 @@ function renderFeaturedDrugs() {
   const list = currentFeaturedCategory === 'all'
     ? drugsData
     : drugsData.filter(d => d.category === currentFeaturedCategory);
-  // 每个 TAB 最多展示 4 个药品，保证首屏能同时看到药品与下方商家
+  // 每个 TAB 最多展示 4 个服务，保证首屏能同时看到服务与下方商家
   const display = list.slice(0, 4);
   grid.innerHTML = '';
   display.forEach(d => {
@@ -723,11 +723,11 @@ function goDrugDetail(id) {
   document.getElementById('drugDetailSpec').textContent = drug.spec;
   document.getElementById('drugDetailSpec2').textContent = drug.spec2;
 
-  // Update info section: 药品介绍下方放几个药品占位图（不再显示文字）
+  // Update info section: 服务介绍下方放几个服务占位图（不再显示文字）
   const placeholderImgs = ['drug1.jpg','drug2.jpg','drug3.jpg','drug4.jpg','drug5.jpg','drug6.jpg'];
   let galleryHtml = '<div class="drug-intro-gallery">';
   placeholderImgs.forEach(src => {
-    galleryHtml += '<div class="drug-intro-thumb"><img src="images/' + src + '" alt="药品占位图" loading="lazy"></div>';
+    galleryHtml += '<div class="drug-intro-thumb"><img src="images/' + src + '" alt="服务占位图" loading="lazy"></div>';
   });
   galleryHtml += '</div>';
   const introEl = document.getElementById('drugDetailIntro');
@@ -775,7 +775,7 @@ function goMerchantDetail(id) {
   // Update drugs on sale section
   const drugSection = document.querySelector('#merchantDetailPage .nearby-merchant-section');
   const availableDrugs = drugsData.filter(d => merchant.drugs && merchant.drugs.includes(d.id));
-  let html = '<div class="drug-info-title">在售药品</div>';
+  let html = '<div class="drug-info-title">在售服务</div>';
   availableDrugs.forEach(d => {
     const imgHtml = d.img
       ? '<div class="nearby-merchant-avatar"><img src="' + d.img + '" alt=""></div>'
@@ -894,7 +894,7 @@ function handleSearch() {
       });
     }
     if (matchedDrugs.length > 0) {
-      html += '<div style="font-size:14px;font-weight:600;margin:12px 0 8px;">相关药品</div>';
+      html += '<div style="font-size:14px;font-weight:600;margin:12px 0 8px;">相关服务</div>';
       matchedDrugs.forEach(d => {
         const imgHtml = d.img
           ? '<div style="width:60px;height:60px;border-radius:8px;background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;border:1px solid var(--border);"><img src="' + d.img + '" style="width:100%;height:100%;object-fit:contain;padding:2px;"></div>'
@@ -983,7 +983,7 @@ function selectMerchant(id) {
   if (!merchant) return;
   const drug = drugsData.find(d => d.id === currentDrugId);
   if (drug && drug.merchants && !drug.merchants.includes(id)) {
-    showToast('该门店暂无可预约药品');
+    showToast('该门店暂无可预约服务');
     return;
   }
   currentMerchantId = id;
@@ -1026,7 +1026,7 @@ function submitAppointment() {
 
   const orderNo = 'YY' + Date.now().toString().slice(-10);
   document.getElementById('successDetail').innerHTML = `
-    您的预约已提交成功！<br>预约单号：<span style="color:var(--primary);font-weight:600;">${orderNo}</span><br>药品数量：${qty} 份<br>请按时到店核销
+    您的预约已提交成功！<br>预约单号：<span style="color:var(--primary);font-weight:600;">${orderNo}</span><br>服务数量：${qty} 份<br>请按时到店核销
   `;
   document.getElementById('successModal').classList.add('show');
 }
@@ -1134,7 +1134,7 @@ function callMerchant() {
 }
 
 function previewCert(index) {
-  const certNames = ['营业执照', '药品经营许可证'];
+  const certNames = ['营业执照', '服务经营许可证'];
   alert('查看资质证书：' + certNames[index - 1] + '\n（实际项目中此处展示证书大图）');
 }
 
@@ -1182,10 +1182,10 @@ function showUserAgreement() {
   showPage('agreement');
 }
 function showAboutIntro() {
-  alert('上药GO是上海医药旗下便民找药平台，致力于为患者提供血液制品等特殊药品的在线查询与预约购药服务。我们与上海地区正规资质诊所深度合作，确保药品来源正规、品质放心。');
+  alert('上药GO是上海医药旗下便民找药平台，致力于为患者提供血液制品等特殊服务的在线查询与预约购药服务。我们与上海地区正规资质诊所深度合作，确保服务来源正规、品质放心。');
 }
 function showOfficialAccount() {
-  alert('请搜索微信公众号"上药GO"关注我们，获取最新药品资讯和优惠活动信息。');
+  alert('请搜索微信公众号"上药GO"关注我们，获取最新服务资讯和优惠活动信息。');
 }
 function cancelSearch() {
   document.getElementById('searchInput').value = '';

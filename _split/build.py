@@ -132,11 +132,11 @@ oldC = """function goDrugDetail(id) {
   document.getElementById('drugDetailSpec').textContent = drug.spec;
   document.getElementById('drugDetailSpec2').textContent = drug.spec2;
 
-  // Update info section: 药品介绍下方放几个药品占位图（不再显示文字）
+  // Update info section: 服务介绍下方放几个服务占位图（不再显示文字）
   const placeholderImgs = ['drug1.jpg','drug2.jpg','drug3.jpg','drug4.jpg','drug5.jpg','drug6.jpg'];
   let galleryHtml = '<div class="drug-intro-gallery">';
   placeholderImgs.forEach(src => {
-    galleryHtml += '<div class="drug-intro-thumb"><img src="images/' + src + '" alt="药品占位图" loading="lazy"></div>';
+    galleryHtml += '<div class="drug-intro-thumb"><img src="images/' + src + '" alt="服务占位图" loading="lazy"></div>';
   });
   galleryHtml += '</div>';
   const introEl = document.getElementById('drugDetailIntro');
@@ -166,7 +166,7 @@ oldC = """function goDrugDetail(id) {
 }"""
 newC = """function goDrugDetail(id) { location.href = 'drug-detail.html?id=' + id; }
 
-// 药品详情渲染（在 drug-detail.html 加载时调用）
+// 服务详情渲染（在 drug-detail.html 加载时调用）
 function renderDrugDetail(id) {
   currentDrugId = id;
   const drug = drugsData.find(d => d.id === id) || drugsData[0];
@@ -186,7 +186,7 @@ function renderDrugDetail(id) {
   const placeholderImgs = ['drug1.jpg','drug2.jpg','drug3.jpg','drug4.jpg','drug5.jpg','drug6.jpg'];
   let galleryHtml = '<div class="drug-intro-gallery">';
   placeholderImgs.forEach(src => {
-    galleryHtml += '<div class="drug-intro-thumb"><img src="images/' + src + '" alt="药品占位图" loading="lazy"></div>';
+    galleryHtml += '<div class="drug-intro-thumb"><img src="images/' + src + '" alt="服务占位图" loading="lazy"></div>';
   });
   galleryHtml += '</div>';
   const introEl = document.getElementById('drugDetailIntro');
@@ -234,7 +234,7 @@ oldD = """function goMerchantDetail(id) {
   // Update drugs on sale section
   const drugSection = document.querySelector('#merchantDetailPage .nearby-merchant-section');
   const availableDrugs = drugsData.filter(d => merchant.drugs && merchant.drugs.includes(d.id));
-  let html = '<div class="drug-info-title">在售药品</div>';
+  let html = '<div class="drug-info-title">在售服务</div>';
   availableDrugs.forEach(d => {
     const imgHtml = d.img
       ? '<div class="nearby-merchant-avatar"><img src="' + d.img + '" alt=""></div>'
@@ -276,7 +276,7 @@ function renderMerchantDetail(id) {
   const drugSection = document.querySelector('#merchantDetailPage .nearby-merchant-section');
   if (drugSection) {
     const availableDrugs = drugsData.filter(d => merchant.drugs && merchant.drugs.includes(d.id));
-    let html = '<div class="drug-info-title">在售药品</div>';
+    let html = '<div class="drug-info-title">在售服务</div>';
     availableDrugs.forEach(d => {
       const imgHtml = d.img
         ? '<div class="nearby-merchant-avatar"><img src="' + d.img + '" alt=""></div>'
