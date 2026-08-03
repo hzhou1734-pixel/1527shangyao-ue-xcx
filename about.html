@@ -21,7 +21,6 @@
       <div class="about-logo">
         <div class="about-logo-icon">药</div>
         <div class="about-logo-name">上药GO</div>
-        <div class="about-logo-ver">版本 v1.0.20</div>
       </div>
     </div>
     <div class="about-section">
@@ -29,10 +28,10 @@
         <span class="about-item-label">平台介绍</span>
         <span class="about-item-value">便民找药平台 ›</span>
       </div>
-      <div class="about-item" onclick="window.open('tel:400-XXX-XXXX')">
-        <span class="about-item-label">联系客服</span>
+      <a class="about-item" href="tel:400-XXX-XXXX">
+        <span class="about-item-label">联系电话</span>
         <span class="about-item-value">400-XXX-XXXX 📞</span>
-      </div>
+      </a>
       <div class="about-item" onclick="showOfficialAccount()">
         <span class="about-item-label">官方公众号</span>
         <span class="about-item-value">上药GO ›</span>
@@ -52,10 +51,30 @@
         <span class="about-item-value">›</span>
       </div>
     </div>
-    <div class="about-footer">上药GO · 便民找药平台 · 版本 v1.0.20</div>
+    <div class="about-footer">上药GO · 便民找药平台 · 版本 v1.0.21</div>
   </div>
 
 
+</div>
+
+<!-- 平台介绍弹窗 -->
+<div class="modal-overlay" id="aboutIntroModal" onclick="if(event.target===this)closeAboutIntro()">
+  <div class="modal-content">
+    <div class="modal-title">平台介绍</div>
+    <div class="modal-text">上药GO是上海医药旗下便民找药平台，致力于为患者提供血液制品等特殊服务的在线查询与预约服务。我们与上海地区正规资质诊所深度合作，确保服务来源正规、品质放心。</div>
+    <button class="modal-ok-btn" onclick="closeAboutIntro()">我知道了</button>
+  </div>
+</div>
+
+<!-- 官方公众号弹窗 -->
+<div class="modal-overlay" id="officialAccountModal" onclick="if(event.target===this)closeOfficialAccount()">
+  <div class="qr-modal-content">
+    <div class="modal-title">官方公众号</div>
+    <img class="official-qr" src="images/wechat-qr.svg" alt="企业微信二维码">
+    <div class="qr-tip">扫码关注企业微信「上药GO」</div>
+    <div class="qr-subtip">获取最新服务资讯与优惠活动</div>
+    <button class="modal-ok-btn" onclick="closeOfficialAccount()">关闭</button>
+  </div>
 </div>
 
 <script src="js/app.js"></script>

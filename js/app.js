@@ -1528,10 +1528,20 @@ function showPrivacy() { location.href = 'privacy.html'; }
 function showUserAgreement() { location.href = 'agreement.html'; }
 function showServiceAgreement() { location.href = 'agreement.html'; }
 function showAboutIntro() {
-  alert('上药GO是上海医药旗下便民找药平台，致力于为患者提供血液制品等特殊服务的在线查询与预约服务。我们与上海地区正规资质诊所深度合作，确保服务来源正规、品质放心。');
+  const m = document.getElementById('aboutIntroModal');
+  if (m) m.classList.add('show');
+}
+function closeAboutIntro() {
+  const m = document.getElementById('aboutIntroModal');
+  if (m) m.classList.remove('show');
 }
 function showOfficialAccount() {
-  alert('请搜索微信公众号"上药GO"关注我们，获取最新服务资讯和优惠活动信息。');
+  const m = document.getElementById('officialAccountModal');
+  if (m) m.classList.add('show');
+}
+function closeOfficialAccount() {
+  const m = document.getElementById('officialAccountModal');
+  if (m) m.classList.remove('show');
 }
 function cancelSearch() { location.href = 'index.html'; }
 
