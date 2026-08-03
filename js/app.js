@@ -739,9 +739,7 @@ function renderHomeMerchants() {
   if (!wrap) return;
   const list = merchantsData.slice().sort((a, b) => (a.distNum || 99) - (b.distNum || 99));
   wrap.innerHTML = list.map(m => {
-    const hero = m.hero
-      ? '<div class="merchant-card-img"><img src="' + m.hero + '" alt=""></div>'
-      : '<div class="merchant-card-img" style="background:' + (m.iconBg || 'var(--primary-light)') + ';">' + m.icon + '</div>';
+    const hero = '<div class="merchant-card-img" style="background:' + (m.iconBg || 'var(--primary-light)') + ';">' + (m.icon || '🏥') + '</div>';
     const tags = (m.tags || []).map(t => '<span class="merchant-tag">' + t + '</span>').join('');
     return '<div class="merchant-card" onclick="goMerchantDetail(' + m.id + ')">'
       + '<div class="merchant-card-top">'
