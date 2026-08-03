@@ -1013,13 +1013,13 @@ function changeQty(delta) {
 
 function prefillAppointment() {
   const drugId = parseInt(getParam('drug')) || currentDrugId;
-  const merchantId = parseInt(getParam('merchant')) || currentMerchantId;
+  const explicitMerchant = parseInt(getParam('merchant'));
   if (drugId) {
     currentDrugId = drugId;
     const d = drugsData.find(x => x.id === drugId);
     const de = document.getElementById('appointDrug');
     if (d && de) de.value = d.name + ' ' + d.spec2;
-    // 以服务卡片形式展示预约服务（含封面 / 厂家 / 规格 / 价格区间）
+    // 以服务卡片形式展示预约服务（含封面 / 厂家 / 规格 / 价格）
     const cardWrap = document.getElementById('appointDrugCard');
     if (d && cardWrap) {
       const bg = d.img ? '#fff' : (d.emojiBg || 'var(--primary-light)');
@@ -1032,8 +1032,14 @@ function prefillAppointment() {
         + '<div class="appt-drug-spec">' + (d.spec || '') + ' · ' + (d.spec2 || '') + '</div>'
         + '<div class="appt-drug-price" id="apptDrugPrice"></div>'
         + '</div></div>';
-      renderApptPrice();
     }
+  }
+  // 默认选中第一个诊所（最近的有货诊所），确保进入页面即显示服务价格
+  let merchantId = explicitMerchant;
+  if (!merchantId) {
+    const drug = drugsData.find(x => x.id === currentDrugId);
+    const def = getDefaultMerchant(drug);
+    merchantId = def ? def.id : currentMerchantId;
   }
   if (merchantId) {
     currentMerchantId = merchantId;
@@ -1041,6 +1047,7 @@ function prefillAppointment() {
     const me = document.getElementById('appointMerchantText');
     if (m && me) me.textContent = m.name;
   }
+  renderApptPrice(); // 渲染价格（此时 currentMerchantId 已确定）
   renderAppointmentTimeSlots();
   const phoneEl = document.getElementById('appointPhone');
   if (phoneEl) {
@@ -1086,6 +1093,16 @@ function renderAppointmentTimeSlots() {
     }
   }
   wrap.innerHTML = slots.map(s => '<div class="time-slot" onclick="selectTime(this)">' + s + '</div>').join('');
+}
+
+// 取预约页默认诊所：附近 30 公里内第一个有货诊所（距离由近到远）
+function getDefaultMerchant(drug) {
+  const inStockIds = (drug && drug.merchants) ? drug.merchants : [];
+  const NEAR_KM = 30;
+  const list = merchantsData
+    .filter(m => (m.distNum != null ? m.distNum : 99) <= NEAR_KM && inStockIds.includes(m.id))
+    .sort((a, b) => (a.distNum != null ? a.distNum : 99) - (b.distNum != null ? b.distNum : 99));
+  return list[0] || null;
 }
 
 // ===== Merchant Picker =====
