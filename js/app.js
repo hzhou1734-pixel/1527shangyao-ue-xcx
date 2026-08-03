@@ -1214,7 +1214,7 @@ function submitAppointment() {
   saveMyAppointments(list);
 
   document.getElementById('successDetail').innerHTML = `
-    您的预约已提交成功！<br>预约单号：<span style="color:var(--primary);font-weight:600;">${orderNo}</span><br>服务数量：${qty} 份<br>请按时到店核销
+    您的预约已提交成功！<br>预约单号：<span style="color:var(--primary);font-weight:600;">${orderNo}</span><br>服务数量：${qty} 份<br>请按时到店
   `;
   document.getElementById('successModal').classList.add('show');
 }
