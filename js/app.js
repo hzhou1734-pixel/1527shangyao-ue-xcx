@@ -40,6 +40,16 @@ function getUserSession() { try { const r = localStorage.getItem(USER_SESSION_KE
 function setUserSession(s) { try { localStorage.setItem(USER_SESSION_KEY, JSON.stringify(s)); } catch (e) {} }
 function clearUserSession() { try { localStorage.removeItem(USER_SESSION_KEY); } catch (e) {} }
 function syncUserLogin() { isLoggedIn = !!getUserSession(); }
+
+// 上药GO 默认账户资料（未自定义时使用）
+const SYGO_AVATAR = 'images/sygo-avatar.svg';
+const SYGO_DEFAULT_NAME = '上药GO-331923';
+function isPathAvatar(a) { return !!(a && (a.indexOf('/') > -1 || a.indexOf('http') === 0 || a.indexOf('data:') === 0)); }
+function applyAvatar(el, avatar) {
+  if (!el) return;
+  if (isPathAvatar(avatar)) { el.innerHTML = '<img src="' + avatar + '" alt="头像">'; }
+  else { el.textContent = avatar || '👤'; }
+}
 let loginTargetPage = null;
 let loginPhone = '13800138000';
 let swiperIndex = 0;
@@ -1462,7 +1472,7 @@ function doLogin() {
   }
   showToast('正在授权手机号...');
   setTimeout(function () {
-    setUserSession({ phone: loginPhone, name: '微信用户' });
+    setUserSession({ phone: loginPhone, name: SYGO_DEFAULT_NAME });
     isLoggedIn = true;
     showToast('登录成功');
     const redirect = getParam('redirect') || sessionStorage.getItem('redirectAfterLogin') || 'index.html';
@@ -1483,17 +1493,19 @@ function renderProfile() {
   const nameEl = document.querySelector('.profile-name');
   const phoneEl = document.querySelector('.profile-phone');
   const avatarEl = document.querySelector('.profile-avatar');
-  if (nameEl) nameEl.textContent = (s && s.name) ? s.name : '微信用户';
+  const name = (s && s.name && s.name !== '微信用户') ? s.name : SYGO_DEFAULT_NAME;
+  if (nameEl) nameEl.textContent = name;
   if (phoneEl) phoneEl.textContent = (s && s.phone) ? s.phone : '未登录';
-  if (avatarEl) avatarEl.textContent = (s && s.avatar) ? s.avatar : '👤';
+  applyAvatar(avatarEl, (s && s.avatar) ? s.avatar : SYGO_AVATAR);
   renderSettings();
 }
 function renderSettings() {
   const s = getUserSession();
   const avatarEl = document.getElementById('settingsAvatar');
   const nameEl = document.getElementById('settingsName');
-  if (avatarEl) avatarEl.textContent = (s && s.avatar) ? s.avatar : '👤';
-  if (nameEl) nameEl.textContent = (s && s.name) ? s.name : '微信用户';
+  applyAvatar(avatarEl, (s && s.avatar) ? s.avatar : SYGO_AVATAR);
+  const name = (s && s.name && s.name !== '微信用户') ? s.name : SYGO_DEFAULT_NAME;
+  if (nameEl) nameEl.textContent = name;
 }
 function showSettings() {
   renderSettings();
@@ -1505,13 +1517,15 @@ function closeSettings() {
   if (m) m.classList.remove('show');
 }
 function changeAvatar() {
-  const s = getUserSession() || { name: '微信用户', phone: '' };
-  const pick = prompt('设置头像（输入一个表情，如 👤 😊 🌟）：', s.avatar || '👤');
+  const s = getUserSession() || { name: SYGO_DEFAULT_NAME, phone: '' };
+  const cur = (s.avatar && !isPathAvatar(s.avatar)) ? s.avatar : '👤';
+  const pick = prompt('设置头像（输入一个表情，如 👤 😊 🌟）：', cur);
   if (pick && pick.trim()) { s.avatar = pick.trim().slice(0, 2); setUserSession(s); renderProfile(); renderSettings(); }
 }
 function editName() {
   const s = getUserSession() || { phone: '' };
-  const name = prompt('修改昵称：', s.name || '微信用户');
+  const cur = (s.name && s.name !== '微信用户') ? s.name : SYGO_DEFAULT_NAME;
+  const name = prompt('修改昵称：', cur);
   if (name && name.trim()) { s.name = name.trim(); setUserSession(s); renderProfile(); renderSettings(); }
 }
 function userLogout() {

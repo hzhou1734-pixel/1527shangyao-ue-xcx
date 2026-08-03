@@ -1156,7 +1156,9 @@
     font-size: 30px;
     border: 3px solid rgba(255,255,255,0.5);
     cursor: pointer;
+    overflow: hidden;
   }
+  .profile-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .profile-name {
     font-size: 18px;
     font-weight: 600;
@@ -1431,7 +1433,8 @@
   .settings-title { font-size: 16px; font-weight: 700; }
   .settings-close { color: var(--text-light); font-size: 18px; cursor: pointer; padding: 2px 6px; }
   .settings-avatar-wrap { display: flex; flex-direction: column; align-items: center; gap: 8px; margin-bottom: 14px; cursor: pointer; }
-  .settings-avatar { width: 64px; height: 64px; border-radius: 50%; background: var(--primary-light); display: flex; align-items: center; justify-content: center; font-size: 32px; }
+  .settings-avatar { width: 64px; height: 64px; border-radius: 50%; background: var(--primary-light); display: flex; align-items: center; justify-content: center; font-size: 32px; overflow: hidden; }
+  .settings-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .settings-avatar-tip { font-size: 12px; color: var(--text-light); }
   .settings-name-row { display: flex; align-items: center; padding: 14px 0; border-top: 1px solid var(--border); cursor: pointer; }
   .settings-name-label { font-size: 15px; }
