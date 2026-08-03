@@ -1406,15 +1406,22 @@ function previewCert(index) {
 
 // ===== Login =====
 function doLogin() {
-  const lp = (document.getElementById('loginPhone')?.value || '').trim();
-  if (lp && /^1[3-9]\d{9}$/.test(lp)) {
-    loginPhone = lp;
+  const agree = document.getElementById('loginAgree');
+  if (!agree || !agree.checked) {
+    showToast('请先阅读并同意用户协议和隐私政策');
+    return;
   }
   setUserSession({ phone: loginPhone, name: '微信用户' });
   isLoggedIn = true;
   const redirect = getParam('redirect') || sessionStorage.getItem('redirectAfterLogin') || 'index.html';
   try { sessionStorage.removeItem('redirectAfterLogin'); } catch(e) {}
   location.href = redirect;
+}
+
+function onLoginAgreeChange() {
+  const btn = document.getElementById('loginBtn');
+  const agree = document.getElementById('loginAgree');
+  if (btn && agree) btn.disabled = !agree.checked;
 }
 
 // ===== Profile =====
