@@ -1053,10 +1053,11 @@
   .order-date-trigger:active { background: var(--bg); }
 
   /* ===== 诊所订单：手机端底部日历区间选择器 ===== */
-  .m-date-picker { position: fixed; inset: 0; z-index: 300; display: none; }
-  .m-date-picker.show { display: block; }
+  .m-date-picker { position: fixed; top: 0; left: 0; right: 0; height: 100vh; height: 100dvh; z-index: 300; display: none; align-items: flex-end; }
+  .m-date-picker.show { display: flex; }
   .m-date-mask { position: absolute; inset: 0; background: rgba(0,0,0,0.45); }
-  .m-date-sheet { position: absolute; left: 0; right: 0; bottom: 0; background: #fff; border-radius: 16px 16px 0 0; padding: 16px 16px calc(16px + env(safe-area-inset-bottom)); animation: mDateSlideUp .2s ease-out; }
+  .m-date-sheet { position: relative; width: 100%; max-height: 92vh; max-height: 92dvh; display: flex; flex-direction: column; overflow: hidden; background: #fff; border-radius: 16px 16px 0 0; padding: 16px 16px calc(16px + env(safe-area-inset-bottom)); animation: mDateSlideUp .2s ease-out; }
+  .m-date-scroll { flex: 1; min-height: 0; overflow-y: auto; -webkit-overflow-scrolling: touch; }
   @keyframes mDateSlideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
   .m-date-head { display: flex; align-items: center; justify-content: space-between; }
   .m-date-title { font-size: 15px; font-weight: 600; }
