@@ -1030,8 +1030,9 @@ function prefillAppointment() {
         + '<div class="appt-drug-img" style="background:' + bg + ';">' + imgHtml + '</div>'
         + '<div class="appt-drug-info"><div class="appt-drug-name">' + d.name + '</div>'
         + '<div class="appt-drug-spec">' + (d.spec || '') + ' · ' + (d.spec2 || '') + '</div>'
-        + (PLATFORM_SETTINGS.priceVisible && PRODUCT_PRICE_MAP[d.id] ? '<div class="appt-drug-price">' + priceRangeOf(d.id).text + '</div>' : '')
+        + '<div class="appt-drug-price" id="apptDrugPrice"></div>'
         + '</div></div>';
+      renderApptPrice();
     }
   }
   if (merchantId) {
@@ -1048,6 +1049,22 @@ function prefillAppointment() {
   }
   const qtyEl = document.getElementById('appointQty');
   if (qtyEl) qtyEl.textContent = '1';
+}
+
+// 预约页服务卡片价格：未选诊所时提示，选中诊所后显示该诊所固定到店价（单一价格，非区间）
+function renderApptPrice() {
+  const el = document.getElementById('apptDrugPrice');
+  if (!el) return;
+  const d = drugsData.find(x => x.id === currentDrugId);
+  if (!d || !PLATFORM_SETTINGS.priceVisible || !PRODUCT_PRICE_MAP[d.id]) { el.innerHTML = ''; return; }
+  const m = merchantsData.find(x => x.id === currentMerchantId);
+  const hasStock = !!(m && d.merchants && d.merchants.includes(m.id));
+  if (m && hasStock) {
+    const price = getMerchantFixedPrice(d.id, m.id);
+    el.innerHTML = '<span class="yen">¥</span>' + price + ' <span class="appt-price-unit">/份</span>';
+  } else {
+    el.innerHTML = '<span class="appt-price-hint">选择诊所后显示价格</span>';
+  }
 }
 
 // 预约时段按所选诊所营业时间整点生成（24 小时营业则 0:00-23:00）
@@ -1075,11 +1092,17 @@ function renderAppointmentTimeSlots() {
 function showMerchantPicker() {
   const drug = drugsData.find(d => d.id === currentDrugId);
   const inStockIds = (drug && drug.merchants) ? drug.merchants : [];
-  // 离我最近的 5 个诊所（按 distNum 升序）
-  const nearest = merchantsData.slice().sort((a, b) => a.distNum - b.distNum).slice(0, 5);
-  let html = '<div class="merchant-picker-hint">已按距离为您推荐最近的 5 家门店，仅「有货」门店可预约</div>';
-  nearest.forEach(m => {
-    const hasStock = inStockIds.includes(m.id);
+  const NEAR_KM = 30;
+  // 附近 30 公里内全部诊所：先 有货→缺货，再 距离由近到远
+  const list = merchantsData
+    .filter(m => (m.distNum != null ? m.distNum : 99) <= NEAR_KM)
+    .map(m => ({ m: m, hasStock: inStockIds.includes(m.id) }))
+    .sort((a, b) => {
+      if (a.hasStock !== b.hasStock) return a.hasStock ? -1 : 1;
+      return (a.m.distNum != null ? a.m.distNum : 99) - (b.m.distNum != null ? b.m.distNum : 99);
+    });
+  let html = '<div class="merchant-picker-hint">已显示附近 ' + NEAR_KM + ' 公里内全部诊所，有货门店可预约（有货优先、距离由近到远）</div>';
+  list.forEach(({ m, hasStock }) => {
     const selected = (m.id === currentMerchantId);
     html += '<div class="merchant-pick-item' + (selected ? ' selected' : '') + (hasStock ? '' : ' disabled') + '"'
       + (hasStock ? ' onclick="selectMerchant(' + m.id + ')"' : '') + '>'
@@ -1090,7 +1113,7 @@ function showMerchantPicker() {
       + '</div>'
       + '<div class="merchant-pick-right">'
       + '<div class="merchant-pick-dist">距您 ' + m.distance + '</div>'
-      + '<div class="merchant-pick-stock ' + (hasStock ? 'in' : 'out') + '">' + (hasStock ? '有货' : '无货') + '</div>'
+      + '<div class="merchant-pick-stock ' + (hasStock ? 'in' : 'out') + '">' + (hasStock ? '有货' : '缺货') + '</div>'
       + '</div></div>';
   });
   document.getElementById('merchantPickerList').innerHTML = html;
@@ -1109,6 +1132,7 @@ function selectMerchant(id) {
   const t = document.getElementById('appointMerchantText');
   if (t) t.textContent = merchant.name;
   renderAppointmentTimeSlots();
+  renderApptPrice();
   closeMerchantPicker();
 }
 
@@ -1510,6 +1534,15 @@ function priceRangeOf(id) {
   const p = PRODUCT_PRICE_MAP[id];
   if (!p) return { min: 0, max: 0, text: '' };
   return { min: p.min, max: p.suggested, text: '¥' + p.min + ' - ¥' + p.suggested };
+}
+// 各诊所价格系数：预约页选中诊所后展示该诊所的「固定到店价」（在平台建议价基础上浮动）
+const MERCHANT_PRICE_FACTOR = { 1: 1.00, 2: 0.95, 3: 0.98, 4: 1.03, 5: 0.92, 6: 1.06, 7: 0.97, 8: 1.02 };
+// 预约页：选中诊所后展示该诊所的固定到店价（单一价格，非区间）
+function getMerchantFixedPrice(drugId, merchantId) {
+  const p = PRODUCT_PRICE_MAP[drugId];
+  if (!p) return null;
+  const factor = MERCHANT_PRICE_FACTOR[merchantId] != null ? MERCHANT_PRICE_FACTOR[merchantId] : 1;
+  return Math.round(p.suggested * factor);
 }
 const MERCHANT_CATEGORY_LABELS = { immunoglobulin: '免疫球蛋白', albumin: '人血白蛋白', factor: '凝血因子', vaccine: '疫苗制品' };
 
