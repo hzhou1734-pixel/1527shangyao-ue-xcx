@@ -1411,11 +1411,22 @@ function doLogin() {
     showToast('请先阅读并同意用户协议和隐私政策');
     return;
   }
-  setUserSession({ phone: loginPhone, name: '微信用户' });
-  isLoggedIn = true;
-  const redirect = getParam('redirect') || sessionStorage.getItem('redirectAfterLogin') || 'index.html';
-  try { sessionStorage.removeItem('redirectAfterLogin'); } catch(e) {}
-  location.href = redirect;
+  const btn = document.getElementById('loginBtn');
+  if (btn && btn.disabled) return;
+  if (btn) {
+    btn.disabled = true;
+    const label = btn.querySelector('.login-btn-text');
+    if (label) label.textContent = '授权中...';
+  }
+  showToast('正在授权手机号...');
+  setTimeout(function () {
+    setUserSession({ phone: loginPhone, name: '微信用户' });
+    isLoggedIn = true;
+    showToast('登录成功');
+    const redirect = getParam('redirect') || sessionStorage.getItem('redirectAfterLogin') || 'index.html';
+    try { sessionStorage.removeItem('redirectAfterLogin'); } catch (e) {}
+    setTimeout(function () { location.href = redirect; }, 700);
+  }, 700);
 }
 
 function onLoginAgreeChange() {
