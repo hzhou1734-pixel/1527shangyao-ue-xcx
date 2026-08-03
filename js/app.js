@@ -1486,23 +1486,39 @@ function renderProfile() {
   if (nameEl) nameEl.textContent = (s && s.name) ? s.name : '微信用户';
   if (phoneEl) phoneEl.textContent = (s && s.phone) ? s.phone : '未登录';
   if (avatarEl) avatarEl.textContent = (s && s.avatar) ? s.avatar : '👤';
-  const logout = document.getElementById('profileLogout');
-  if (logout) logout.style.display = s ? 'block' : 'none';
+  renderSettings();
+}
+function renderSettings() {
+  const s = getUserSession();
+  const avatarEl = document.getElementById('settingsAvatar');
+  const nameEl = document.getElementById('settingsName');
+  if (avatarEl) avatarEl.textContent = (s && s.avatar) ? s.avatar : '👤';
+  if (nameEl) nameEl.textContent = (s && s.name) ? s.name : '微信用户';
+}
+function showSettings() {
+  renderSettings();
+  const m = document.getElementById('settingsModal');
+  if (m) m.classList.add('show');
+}
+function closeSettings() {
+  const m = document.getElementById('settingsModal');
+  if (m) m.classList.remove('show');
 }
 function changeAvatar() {
   const s = getUserSession() || { name: '微信用户', phone: '' };
   const pick = prompt('设置头像（输入一个表情，如 👤 😊 🌟）：', s.avatar || '👤');
-  if (pick && pick.trim()) { s.avatar = pick.trim().slice(0, 2); setUserSession(s); renderProfile(); }
+  if (pick && pick.trim()) { s.avatar = pick.trim().slice(0, 2); setUserSession(s); renderProfile(); renderSettings(); }
 }
 function editName() {
   const s = getUserSession() || { phone: '' };
   const name = prompt('修改昵称：', s.name || '微信用户');
-  if (name && name.trim()) { s.name = name.trim(); setUserSession(s); renderProfile(); }
+  if (name && name.trim()) { s.name = name.trim(); setUserSession(s); renderProfile(); renderSettings(); }
 }
 function userLogout() {
   clearUserSession();
   isLoggedIn = false;
   showToast('已退出登录');
+  closeSettings();
   setTimeout(() => { location.href = 'index.html'; }, 800);
 }
 

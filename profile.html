@@ -55,14 +55,9 @@
         <div class="profile-menu-text">关于我们</div>
         <span class="profile-menu-arrow">›</span>
       </div>
-      <div class="profile-menu-item" onclick="showPrivacy()">
-        <div class="profile-menu-icon" style="background:#FCE8E8;">🔒</div>
-        <div class="profile-menu-text">隐私政策</div>
-        <span class="profile-menu-arrow">›</span>
-      </div>
-      <div class="profile-menu-item" onclick="showUserAgreement()">
-        <div class="profile-menu-icon" style="background:#E8F0FE;">📋</div>
-        <div class="profile-menu-text">用户协议</div>
+      <div class="profile-menu-item" onclick="showSettings()">
+        <div class="profile-menu-icon" style="background:#E8F0FE;">⚙️</div>
+        <div class="profile-menu-text">基础设置</div>
         <span class="profile-menu-arrow">›</span>
       </div>
     </div>
@@ -75,7 +70,26 @@
       </div>
     </div>
 
-    <button id="profileLogout" class="profile-logout-btn" onclick="userLogout()">退出登录</button>
+  </div>
+
+  <!-- ========== Basic Settings Modal ========== -->
+  <div class="modal-overlay" id="settingsModal" onclick="if(event.target===this)closeSettings()">
+    <div class="settings-modal">
+      <div class="settings-head">
+        <span class="settings-title">基础设置</span>
+        <span class="settings-close" onclick="closeSettings()">✕</span>
+      </div>
+      <div class="settings-avatar-wrap" onclick="changeAvatar()">
+        <div class="settings-avatar" id="settingsAvatar">👤</div>
+        <div class="settings-avatar-tip">点击修改头像</div>
+      </div>
+      <div class="settings-name-row" onclick="editName()">
+        <span class="settings-name-label">昵称</span>
+        <span class="settings-name-val" id="settingsName">微信用户</span>
+        <span class="profile-menu-arrow">›</span>
+      </div>
+      <button class="settings-logout" onclick="userLogout()">退出登录</button>
+    </div>
   </div>
 
   <div class="tab-bar" id="tabBar">

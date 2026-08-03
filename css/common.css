@@ -1418,6 +1418,28 @@
   .qr-placeholder span { font-size: 12px; color: var(--text-light); }
   .qr-tip { font-size: 12px; color: var(--text-secondary); margin-top: 8px; }
 
+  /* ===== Basic Settings Modal ===== */
+  .settings-modal {
+    width: 80%;
+    max-width: 320px;
+    background: #fff;
+    border-radius: 16px;
+    padding: 20px;
+    animation: modalIn 0.3s ease;
+  }
+  .settings-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+  .settings-title { font-size: 16px; font-weight: 700; }
+  .settings-close { color: var(--text-light); font-size: 18px; cursor: pointer; padding: 2px 6px; }
+  .settings-avatar-wrap { display: flex; flex-direction: column; align-items: center; gap: 8px; margin-bottom: 14px; cursor: pointer; }
+  .settings-avatar { width: 64px; height: 64px; border-radius: 50%; background: var(--primary-light); display: flex; align-items: center; justify-content: center; font-size: 32px; }
+  .settings-avatar-tip { font-size: 12px; color: var(--text-light); }
+  .settings-name-row { display: flex; align-items: center; padding: 14px 0; border-top: 1px solid var(--border); cursor: pointer; }
+  .settings-name-label { font-size: 15px; }
+  .settings-name-val { flex: 1; text-align: right; font-size: 15px; color: var(--text-secondary); margin-right: 8px; }
+  .settings-logout { width: 100%; margin-top: 18px; height: 44px; border: none; background: #fff5f5; color: #ff3b30; border-radius: 22px; font-size: 15px; font-weight: 600; cursor: pointer; }
+  .settings-logout:active { background: #ffeaea; }
+
+
   /* ===== Location Permission Modal ===== */
   .loc-permission-modal {
     width: 80%;
