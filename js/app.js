@@ -490,9 +490,7 @@ function getFeaturedCategoryList() {
   FEATURED_TAB_ORDER.forEach(c => {
     if (drugsData.some(d => d.category === c)) present.push(c);
   });
-  return [{ key: 'all', label: '全部' }].concat(
-    present.map(c => ({ key: c, label: CATEGORY_LABELS[c] || c }))
-  );
+  return present.map(c => ({ key: c, label: CATEGORY_LABELS[c] || c }));
 }
 
 function renderFeaturedTabs() {
@@ -547,6 +545,12 @@ function renderFeaturedDrugs() {
 }
 
 function initFeaturedSection() {
+  const list = getFeaturedCategoryList();
+  if (!list.length) return;
+  // 移除「全部」后，默认选中第一个真实分类，保证首屏有正确默认分类且展示对应药品
+  if (!list.some(t => t.key === currentFeaturedCategory)) {
+    currentFeaturedCategory = list[0].key;
+  }
   renderFeaturedTabs();
   renderFeaturedDrugs();
 }
