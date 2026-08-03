@@ -1191,14 +1191,6 @@
     font-size: 18px;
   }
   .profile-menu-text { flex: 1; font-size: 14px; font-weight: 500; }
-  .profile-menu-badge {
-    background: var(--red);
-    color: white;
-    font-size: 10px;
-    padding: 1px 7px;
-    border-radius: 10px;
-    font-weight: 600;
-  }
   .profile-menu-arrow { color: var(--text-light); }
 
   .profile-menu-item2 {

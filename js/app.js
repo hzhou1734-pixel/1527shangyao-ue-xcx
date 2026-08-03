@@ -1486,13 +1486,6 @@ function renderProfile() {
   if (nameEl) nameEl.textContent = (s && s.name) ? s.name : '微信用户';
   if (phoneEl) phoneEl.textContent = (s && s.phone) ? s.phone : '未登录';
   if (avatarEl) avatarEl.textContent = (s && s.avatar) ? s.avatar : '👤';
-  const badge = document.querySelector('.profile-menu-badge');
-  if (badge) {
-    const list = getMyAppointments();
-    const n = list ? list.length : 0;
-    badge.textContent = n;
-    badge.style.display = n > 0 ? 'flex' : 'none';
-  }
   const logout = document.getElementById('profileLogout');
   if (logout) logout.style.display = s ? 'block' : 'none';
 }
