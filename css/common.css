@@ -2231,7 +2231,7 @@
 .ai-drawer-foot { padding: 12px 16px; text-align: center; font-size: 11px; color: #aaa; border-top: 1px solid #f0f0f0; }
 
 /* ===== Profile phone + logout (requirement: 我的) ===== */
-.profile-phone { font-size: 12px; opacity: 0.85; margin-top: 4px; color: var(--text-light); }
+.profile-phone { font-size: 12px; opacity: 0.85; margin-top: 4px; color: #fff; }
 .profile-logout-btn { display: none; width: calc(100% - 32px); margin: 16px auto; height: 44px; border: 1px solid #ffd5d5; background: #fff5f5; color: #ff3b30; border-radius: 22px; font-size: 15px; font-weight: 600; cursor: pointer; }
 .profile-logout-btn:active { background: #ffeaea; }
 
