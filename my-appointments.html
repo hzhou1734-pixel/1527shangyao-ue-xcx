@@ -16,7 +16,10 @@
     </div>
 
     <div class="order-filter">
-      <label>下单日期</label>
+      <div class="order-tabs">
+        <span class="order-tab active" data-mode="order" onclick="setApptFilterMode('order')">下单日期</span>
+        <span class="order-tab" data-mode="appt" onclick="setApptFilterMode('appt')">预约日期</span>
+      </div>
       <div class="order-date-trigger" id="apptOrderTrigger" onclick="openApptDatePicker()">全部日期</div>
       <button class="btn-reset" onclick="resetApptOrderRange()">全部</button>
     </div>

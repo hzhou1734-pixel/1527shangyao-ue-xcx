@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>商品管理 - 上药GO</title>
+<title>服务管理 - 上药GO</title>
 <link rel="stylesheet" href="css/common.css">
 
 </head>
@@ -15,11 +15,16 @@
       <div class="back-btn" onclick="goBack()">
         <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
       </div>
-      商品管理
+      服务管理
     </div>
 
     <div class="m-prod-search-wrap">
-      <input class="m-prod-search" id="merchantProductSearch" placeholder="搜索服务名称 / 规格" oninput="searchMerchantProduct()">
+      <input class="m-prod-search" id="merchantProductSearch" placeholder="搜索服务名称 / 规格 / 厂家" oninput="searchMerchantProduct()">
+    </div>
+    <div class="m-prod-onsale-tabs">
+      <span class="m-prod-onsale-tab active" data-os="" onclick="setMerchantProductOnsaleFilter('')">全部</span>
+      <span class="m-prod-onsale-tab" data-os="on" onclick="setMerchantProductOnsaleFilter('on')">已上架</span>
+      <span class="m-prod-onsale-tab" data-os="off" onclick="setMerchantProductOnsaleFilter('off')">未上架</span>
     </div>
     <div class="m-prod-cat-tabs" id="merchantCategoryTabs"></div>
 

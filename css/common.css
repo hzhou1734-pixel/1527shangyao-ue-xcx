@@ -762,6 +762,7 @@
     background: linear-gradient(135deg, #FF8C32, #FFB574);
     cursor: pointer;
     overflow: hidden;
+    position: relative;
   }
   .merchant-detail-hero-img {
     width: 100%;
@@ -769,6 +770,13 @@
     object-fit: cover;
     display: block;
   }
+  /* 门头照多图滑动 */
+  .detail-hero-swiper { width: 100%; height: 100%; display: flex; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
+  .detail-hero-slide { flex: 0 0 100%; width: 100%; height: 100%; scroll-snap-align: start; }
+  .detail-hero-slide .merchant-detail-hero-img { object-fit: cover; }
+  .detail-hero-dots { position: absolute; bottom: 10px; left: 0; right: 0; display: flex; justify-content: center; gap: 6px; z-index: 2; }
+  .detail-hero-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.55); }
+  .detail-hero-dot.active { background: #fff; width: 14px; border-radius: 4px; }
   .merchant-detail-card {
     background: white;
     margin: -30px 16px 0;
@@ -1885,6 +1893,19 @@
   .login-links { margin-top: 14px; text-align: right; }
   .login-links a { color: var(--primary); font-size: 13px; }
 
+  /* 协议勾选（登录前必须同意） */
+  .login-agree { display: flex; align-items: flex-start; gap: 8px; margin-top: 16px; font-size: 12px; color: var(--text-secondary); line-height: 1.5; cursor: pointer; }
+  .login-agree-check { width: 16px; height: 16px; margin-top: 1px; flex-shrink: 0; accent-color: var(--primary); }
+  .login-agree-text a { color: var(--primary); text-decoration: none; }
+  .login-hint { font-size: 12px; color: #E0883B; margin-top: 8px; background: #FFF6EC; padding: 8px 10px; border-radius: 6px; }
+
+  /* 首次登录设置新密码（可跳过） */
+  .set-pwd-card { width: 86%; max-width: 320px; background: #fff; border-radius: 16px; padding: 22px 20px; box-sizing: border-box; box-shadow: 0 8px 30px rgba(0,0,0,0.18); }
+  .set-pwd-title { font-size: 17px; font-weight: 700; text-align: center; }
+  .set-pwd-tip { font-size: 12px; color: var(--text-secondary); text-align: center; margin-top: 8px; line-height: 1.5; }
+  .set-pwd-skip { display: block; width: 100%; margin-top: 12px; background: none; border: none; color: var(--text-secondary); font-size: 13px; cursor: pointer; }
+
+
   /* ===== Merchant Change Password Form ===== */
   .cp-card { margin: 12px 16px; background: #fff; border-radius: var(--radius); box-shadow: var(--shadow); padding: 16px; }
   .cp-field { margin-bottom: 16px; }
@@ -2170,3 +2191,60 @@
 .ai-drawer-item-del { position: absolute; right: 12px; top: 12px; width: 22px; height: 22px; border-radius: 50%; background: #f0f0f0; color: #999; display: flex; align-items: center; justify-content: center; font-size: 16px; line-height: 1; cursor: pointer; }
 .ai-drawer-item-del:hover { background: #ff3b30; color: #fff; }
 .ai-drawer-foot { padding: 12px 16px; text-align: center; font-size: 11px; color: #aaa; border-top: 1px solid #f0f0f0; }
+
+/* ===== Profile phone + logout (requirement: 我的) ===== */
+.profile-phone { font-size: 12px; opacity: 0.85; margin-top: 4px; color: var(--text-light); }
+.profile-logout-btn { display: none; width: calc(100% - 32px); margin: 16px auto; height: 44px; border: 1px solid #ffd5d5; background: #fff5f5; color: #ff3b30; border-radius: 22px; font-size: 15px; font-weight: 600; cursor: pointer; }
+.profile-logout-btn:active { background: #ffeaea; }
+
+/* ===== Segmented onsale tabs (服务管理) ===== */
+.m-prod-onsale-tabs { display: flex; gap: 8px; padding: 8px 12px; background: var(--white); }
+.m-prod-onsale-tab { flex: 1; text-align: center; padding: 7px 0; font-size: 13px; color: var(--text-secondary); background: var(--bg); border-radius: 16px; cursor: pointer; }
+.m-prod-onsale-tab.active { background: var(--primary); color: #fff; font-weight: 600; }
+
+/* ===== Order dual-tab (我的预约) ===== */
+.order-tabs { display: flex; gap: 4px; }
+.order-tab { padding: 5px 12px; font-size: 13px; color: var(--text-secondary); background: var(--bg); border-radius: 14px; cursor: pointer; }
+.order-tab.active { background: var(--primary); color: #fff; font-weight: 600; }
+
+/* ===== Search result tabs (服务/诊所) ===== */
+.search-tab-bar { display: flex; gap: 8px; margin-bottom: 10px; }
+.search-tab { padding: 5px 16px; font-size: 13px; color: var(--text-secondary); background: var(--bg); border-radius: 16px; cursor: pointer; }
+.search-tab.active { background: var(--primary); color: #fff; font-weight: 600; }
+
+/* ===== Merchant order stat row (预约订单) ===== */
+.m-ord-stat-row { display: flex; gap: 8px; padding: 12px; background: var(--white); border-bottom: 1px solid var(--border); }
+.m-ord-stat { flex: 1; background: var(--bg); border-radius: 12px; padding: 12px 4px; text-align: center; }
+.m-ord-stat b { display: block; font-size: 20px; font-weight: 700; color: var(--primary); line-height: 1.2; }
+.m-ord-stat span { font-size: 12px; color: var(--text-secondary); }
+
+/* ===== Appointment drug card ===== */
+.appt-drug-card { display: flex; gap: 12px; align-items: center; background: var(--white); padding: 12px; border-radius: 12px; box-shadow: var(--shadow); }
+.appt-drug-img { width: 60px; height: 60px; border-radius: 10px; display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; border: 1px solid var(--border); }
+.appt-drug-img img { width: 100%; height: 100%; object-fit: contain; padding: 4px; }
+.appt-drug-info { flex: 1; min-width: 0; }
+.appt-drug-name { font-size: 15px; font-weight: 600; color: var(--text); }
+.appt-drug-spec { font-size: 12px; color: var(--text-secondary); margin-top: 3px; }
+.appt-drug-price { font-size: 14px; font-weight: 700; color: var(--primary); margin-top: 4px; }
+
+/* ===== Merchant order cover ===== */
+.m-order-cover-wrap { float: left; width: 56px; height: 56px; margin: 0 10px 6px 0; border-radius: 10px; overflow: hidden; border: 1px solid var(--border); background: var(--bg); }
+.m-order-cover { width: 100%; height: 100%; object-fit: contain; padding: 4px; }
+.m-order-item::after { content: ''; display: block; clear: both; }
+
+/* ===== QR swipe (诊所详情在线咨询) ===== */
+.qr-swipe { display: flex; gap: 12px; overflow-x: auto; padding: 4px 2px 8px; -webkit-overflow-scrolling: touch; scroll-snap-type: x mandatory; }
+.qr-swipe-card { flex: 0 0 46%; max-width: 150px; scroll-snap-align: center; background: var(--bg); border-radius: 12px; padding: 14px 10px; text-align: center; }
+.qr-placeholder { width: 100%; aspect-ratio: 1 / 1; background: #fff; border-radius: 10px; border: 1px dashed var(--border); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; color: var(--text-light); font-size: 12px; padding: 8px; }
+.qr-placeholder svg { width: 40px; height: 40px; opacity: 0.5; }
+.qr-swipe-label { margin-top: 8px; font-size: 13px; font-weight: 600; color: var(--text); }
+.qr-tip { text-align: center; font-size: 12px; color: var(--text-light); margin-top: 8px; }
+
+/* ===== Drug detail rich-text sections (服务详情) ===== */
+.drug-detail-section { background: var(--white); margin: 10px 12px 0; border-radius: 12px; padding: 12px 14px; box-shadow: var(--shadow); }
+.drug-detail-section-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+.drug-detail-section-body { font-size: 13px; color: var(--text-secondary); line-height: 1.6; white-space: pre-wrap; }
+
+/* ===== Nearby merchant price + price hidden ===== */
+.nearby-merchant-price { font-size: 12px; color: var(--primary); margin-top: 4px; font-weight: 600; }
+.price-hidden { display: inline-block; font-size: 12px; color: var(--text-light); background: var(--bg); border: 1px dashed var(--border); border-radius: 6px; padding: 1px 8px; }

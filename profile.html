@@ -31,7 +31,7 @@
         <div class="profile-avatar" onclick="changeAvatar()">👤</div>
         <div>
           <div class="profile-name" onclick="editName()">微信用户</div>
-          <div class="profile-id">ID: 100238</div>
+          <div class="profile-phone">未登录</div>
         </div>
       </div>
     </div>
@@ -40,7 +40,7 @@
       <div class="profile-menu-item" onclick="goMyAppointments()">
         <div class="profile-menu-icon" style="background:var(--primary-light);">📋</div>
         <div class="profile-menu-text">我的预约</div>
-        <span class="profile-menu-badge">1</span>
+        <span class="profile-menu-badge">0</span>
         <span class="profile-menu-arrow">›</span>
       </div>
       <div class="profile-menu-item" onclick="showQR()">
@@ -75,6 +75,8 @@
         <span class="profile-menu-arrow">›</span>
       </div>
     </div>
+
+    <button id="profileLogout" class="profile-logout-btn" onclick="userLogout()">退出登录</button>
   </div>
 
   <div class="tab-bar" id="tabBar">

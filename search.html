@@ -14,7 +14,7 @@
     <div class="nav-bar" style="background:var(--white);color:var(--text);">
       <div class="search-input-wrap" style="flex:1;margin:0 12px;">
         <svg viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        <input type="text" placeholder="搜索服务名称、厂家、诊所" id="searchInput" oninput="handleSearch()">
+        <input type="text" placeholder="搜索服务名称、厂家、诊所" id="searchInput" oninput="handleSearch()" onkeydown="if(event.key==='Enter'){addSearchHistory(this.value.trim());}">
         <svg class="clear-btn" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2" onclick="clearSearch()"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </div>
       <span style="font-size:14px;color:var(--primary);margin-right:12px;cursor:pointer;white-space:nowrap;" onclick="cancelSearch()">取消</span>
@@ -31,14 +31,20 @@
         </div>
       </div>
       <div class="search-result-section">
-        <div class="search-result-section-title">搜索历史</div>
-        <div style="display:flex;flex-wrap:wrap;gap:8px;">
-          <span class="merchant-tag" onclick="searchFor('人血白蛋白')" style="cursor:pointer;">人血白蛋白</span>
-          <span class="merchant-tag" onclick="searchFor('杰特贝林')" style="cursor:pointer;">杰特贝林</span>
+        <div class="search-result-section-title" style="display:flex;justify-content:space-between;align-items:center;">
+          <span>搜索历史</span>
+          <span style="font-size:12px;color:var(--text-secondary);cursor:pointer;" onclick="clearSearchHistory()">清空</span>
         </div>
+        <div id="searchHistory" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
       </div>
     </div>
-    <div id="searchResultList" style="display:none;padding:12px 16px;"></div>
+    <div id="searchResultList" style="display:none;padding:12px 16px;">
+      <div class="search-tab-bar" id="searchTabBar">
+        <span class="search-tab active" data-tab="drug" onclick="setSearchTab('drug')">服务</span>
+        <span class="search-tab" data-tab="merchant" onclick="setSearchTab('merchant')">诊所</span>
+      </div>
+      <div id="searchResultContent"></div>
+    </div>
   </div>
 
   <div class="tab-bar" id="tabBar">

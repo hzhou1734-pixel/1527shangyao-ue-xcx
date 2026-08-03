@@ -44,15 +44,15 @@
     <div class="swiper-section">
       <div class="swiper-wrap">
         <div class="swiper-track" id="swiperTrack">
-          <div class="swiper-slide">
+          <div class="swiper-slide" onclick="goBanner(0)">
             <img src="images/banner1.png" alt="便民找药">
             <div class="swiper-slide-text">便民找药 一键查询<small>附近诊所服务实时查</small></div>
           </div>
-          <div class="swiper-slide">
+          <div class="swiper-slide" onclick="goBanner(1)">
             <img src="images/banner2.png" alt="在线预约">
-            <div class="swiper-slide-text">在线预约 到店取药<small>省时省心更便捷</small></div>
+            <div class="swiper-slide-text">在线预约 到店服务<small>省时省心更便捷</small></div>
           </div>
-          <div class="swiper-slide">
+          <div class="swiper-slide" onclick="goBanner(2)">
             <img src="images/banner3.png" alt="专业保障">
             <div class="swiper-slide-text">血液制品 专业保障<small>正规资质·品质放心</small></div>
           </div>
@@ -76,50 +76,7 @@
       <div class="section-title">附近诊所</div>
       <div class="section-more" onclick="goAllMerchants()">查看更多 ›</div>
     </div>
-    <div class="merchant-list">
-      <div class="merchant-card" onclick="goMerchantDetail(1)">
-        <div class="merchant-card-top">
-          <div class="merchant-card-img">🏥</div>
-          <div class="merchant-card-info">
-            <div class="merchant-card-name">仁济诊所(浦东店) <span class="cert-badge">✓ 执业资质</span></div>
-            <div class="merchant-card-addr">📍 浦东新区张杨路500号</div>
-            <div class="merchant-card-distance">距您 580m</div>
-          </div>
-        </div>
-        <div class="merchant-card-tags">
-          <span class="merchant-tag">静注人免疫球蛋白</span>
-          <span class="merchant-tag">人血白蛋白</span>
-        </div>
-      </div>
-      <div class="merchant-card" onclick="goMerchantDetail(2)">
-        <div class="merchant-card-top">
-          <div class="merchant-card-img" style="background:var(--primary-light);">🏪</div>
-          <div class="merchant-card-info">
-            <div class="merchant-card-name">国大诊所(徐汇店) <span class="cert-badge">✓ 执业资质</span></div>
-            <div class="merchant-card-addr">📍 徐汇区漕溪北路200号</div>
-            <div class="merchant-card-distance">距您 1.2km</div>
-          </div>
-        </div>
-        <div class="merchant-card-tags">
-          <span class="merchant-tag">人血白蛋白</span>
-          <span class="merchant-tag">静注人免疫球蛋白</span>
-        </div>
-      </div>
-      <div class="merchant-card" onclick="goMerchantDetail(3)">
-        <div class="merchant-card-top">
-          <div class="merchant-card-img" style="background:#E8F0FE;">🏥</div>
-          <div class="merchant-card-info">
-            <div class="merchant-card-name">益丰诊所(静安店) <span class="cert-badge">✓ 执业资质</span></div>
-            <div class="merchant-card-addr">📍 静安区南京西路1200号</div>
-            <div class="merchant-card-distance">距您 2.1km</div>
-          </div>
-        </div>
-        <div class="merchant-card-tags">
-          <span class="merchant-tag">人血白蛋白</span>
-          <span class="merchant-tag">静注人免疫球蛋白</span>
-        </div>
-      </div>
-    </div>
+    <div class="merchant-list" id="homeMerchantList"></div>
     <div class="loading-more">— 更多诊所敬请期待 —</div>
   </div>
   
