@@ -1513,35 +1513,38 @@
   .login-page {
     display: block;
     min-height: 100vh;
-    background: linear-gradient(180deg, var(--primary) 0%, #5CD89D 40%, var(--bg) 40%);
+    background: var(--bg);
   }
   .login-page.active { display: block; }
   .login-header {
-    padding: 60px 20px 40px;
+    padding: 64px 24px 78px;
     text-align: center;
     color: white;
-    background: linear-gradient(135deg, var(--primary), #2f7fe0);
+    background: linear-gradient(160deg, var(--primary) 0%, var(--primary-dark) 100%);
   }
   .login-logo {
-    width: 80px;
-    height: 80px;
+    width: 72px;
+    height: 72px;
     border-radius: 20px;
-    background: rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.18);
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-size: 36px;
+    font-size: 34px;
     font-weight: 700;
-    margin-bottom: 16px;
+    margin-bottom: 18px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.12);
   }
-  .login-title { font-size: 24px; font-weight: 700; }
-  .login-subtitle { font-size: 14px; opacity: 0.85; margin-top: 6px; }
+  .login-title { font-size: 26px; font-weight: 700; letter-spacing: 1px; }
+  .login-subtitle { font-size: 14px; opacity: 0.9; margin-top: 8px; }
   .login-card {
     background: white;
-    margin: 0 20px;
-    border-radius: 16px;
-    padding: 30px 20px;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    margin: -42px 20px 0;
+    border-radius: 20px;
+    padding: 28px 22px 24px;
+    box-shadow: 0 12px 32px rgba(0,0,0,0.10);
+    position: relative;
+    z-index: 2;
   }
   .login-btn {
     width: 100%;
