@@ -434,19 +434,6 @@ function filterDrugs(el, category) {
   if (countEl) countEl.textContent = visibleCount;
 }
 
-function sortDrugs(el, type) {
-  el.parentElement.querySelectorAll('.sort-item').forEach(s => s.classList.remove('active'));
-  el.classList.add('active');
-  const listContainer = document.querySelector('#allDrugsPage .all-drug-list');
-  const items = Array.from(listContainer.querySelectorAll('.all-drug-item'));
-  items.sort((a, b) => {
-    if (type === 'distance') return parseFloat(a.getAttribute('data-distance')) - parseFloat(b.getAttribute('data-distance'));
-    if (type === 'stock') return parseInt(b.getAttribute('data-stock')) - parseInt(a.getAttribute('data-stock'));
-    return parseInt(a.getAttribute('data-id')) - parseInt(b.getAttribute('data-id'));
-  });
-  items.forEach(item => listContainer.appendChild(item));
-}
-
 function filterMerchants(el, category) {
   el.parentElement.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
   el.classList.add('active');
