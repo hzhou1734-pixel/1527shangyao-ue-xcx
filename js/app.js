@@ -576,7 +576,8 @@ function renderDrugDetail(id) {
   const priceEl = document.getElementById('drugDetailPrice');
   if (priceEl) {
     if (PLATFORM_SETTINGS.priceVisible && PRODUCT_PRICE_MAP[drug.id]) {
-      priceEl.innerHTML = priceRangeOf(drug.id).text;
+      const _pr = priceRangeOf(drug.id);
+      priceEl.textContent = _pr.min + ' - ' + _pr.max;
     } else {
       priceEl.innerHTML = '<span class="price-hidden">价格已隐藏</span>';
     }
