@@ -708,7 +708,8 @@ function renderMerchantDetail(id) {
       const imgHtml = d.img
         ? '<div class="nearby-merchant-avatar"><img src="' + d.img + '" alt=""></div>'
         : '<div class="nearby-merchant-avatar" style="font-size:20px;">' + (d.emoji || '💊') + '</div>';
-      const priceTxt = (PLATFORM_SETTINGS.priceVisible && PRODUCT_PRICE_MAP[d.id]) ? priceRangeOf(d.id).text : '';
+      const fixedPrice = (PLATFORM_SETTINGS.priceVisible && PRODUCT_PRICE_MAP[d.id]) ? getMerchantFixedPrice(d.id, merchant.id) : 0;
+      const priceTxt = fixedPrice ? '¥' + fixedPrice + ' /份' : '';
       html += '<div class="nearby-merchant-item" onclick="goDrugDetail(' + d.id + ')">'
         + imgHtml
         + '<div class="nearby-merchant-info">'
