@@ -554,12 +554,6 @@
     font-weight: 500;
     margin-top: 2px;
   }
-  .merchant-card-tags {
-    display: flex;
-    gap: 6px;
-    margin-top: 8px;
-    flex-wrap: wrap;
-  }
   .merchant-tag {
     font-size: 10px;
     color: var(--text-secondary);

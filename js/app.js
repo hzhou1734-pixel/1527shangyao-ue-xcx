@@ -633,7 +633,6 @@ function renderHomeMerchants() {
   const list = merchantsData.slice().sort((a, b) => (a.distNum || 99) - (b.distNum || 99));
   wrap.innerHTML = list.map(m => {
     const hero = '<div class="merchant-card-img" style="background:' + (m.iconBg || 'var(--primary-light)') + ';">' + (m.icon || '🏥') + '</div>';
-    const tags = (m.tags || []).map(t => '<span class="merchant-tag">' + t + '</span>').join('');
     return '<div class="merchant-card" onclick="goMerchantDetail(' + m.id + ')">'
       + '<div class="merchant-card-top">'
       + hero
@@ -642,7 +641,6 @@ function renderHomeMerchants() {
       + '<div class="merchant-card-addr">📍 ' + m.addr + '</div>'
       + '<div class="merchant-card-distance">距您 ' + m.distance + (m.drugCount ? ' · ' + m.drugCount + '款在售' : '') + '</div>'
       + '</div></div>'
-      + (tags ? '<div class="merchant-card-tags">' + tags + '</div>' : '')
       + '</div>';
   }).join('');
 }
