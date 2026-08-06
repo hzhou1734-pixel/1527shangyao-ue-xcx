@@ -1332,7 +1332,7 @@ function renderMyAppointments() {
   }
   filtered.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
   listEl.innerHTML = filtered.map(a => `
-    <div class="appointment-item">
+    <div class="appointment-item" onclick="goMerchantDetail(${a.merchantId != null ? a.merchantId : 1})">
       <div class="appointment-item-header">
         <span class="appointment-order-no">单号：${escHtml(a.orderNo)}</span>
       </div>
@@ -1340,7 +1340,7 @@ function renderMyAppointments() {
         <div class="appointment-item-icon"><img src="${escHtml(a.img || 'images/drug1.jpg')}" alt=""></div>
         <div class="appointment-item-info">
           <div class="appointment-item-drug">${escHtml(a.drugName)}</div>
-          <div class="appointment-item-merchant" onclick="goMerchantDetail(${a.merchantId != null ? a.merchantId : 1})">${escHtml(a.merchantName)}</div>
+          <div class="appointment-item-merchant">${escHtml(a.merchantName)}</div>
           <div class="appointment-item-time">🕒 下单时间：${escHtml(formatDateTime(a.createdAt))}</div>
           <div class="appointment-item-time">📅 预约时间：${escHtml(a.time)}</div>
           <div class="appointment-item-qty">📦 数量：${escHtml(a.qty)} 份</div>
