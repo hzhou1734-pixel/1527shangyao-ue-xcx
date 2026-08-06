@@ -715,7 +715,7 @@ function renderMerchantDetail(id) {
       + '<div class="md-service-tab active" data-cat="all" onclick="filterMerchantServices(\'all\')">全部</div>';
     cats.forEach(c => { tabs += '<div class="md-service-tab" data-cat="' + c + '" onclick="filterMerchantServices(\'' + c + '\')">' + (catMap[c] || c) + '</div>'; });
     tabs += '</div>';
-    drugSection.innerHTML = '<div class="drug-info-title">在约服务</div>' + tabs + '<div id="mdServiceList"></div>';
+    drugSection.innerHTML = '<div class="drug-info-title">可约服务</div>' + tabs + '<div id="mdServiceList"></div>';
     window.__mdMerchant = merchant; window.__mdCatMap = catMap;
     renderMerchantServiceList('all');
   }
@@ -752,7 +752,7 @@ function renderMerchantServiceList(cat) {
       + '<button class="btn-sm btn-sm-primary merchant-book-btn" onclick="event.stopPropagation(); bookDrugAtMerchant(' + d.id + ',' + merchant.id + ')">预约</button>'
       + '</div></div>';
   });
-  list.innerHTML = html || '<div class="empty-tip">该分类暂无在约服务</div>';
+  list.innerHTML = html || '<div class="empty-tip">该分类暂无可约服务</div>';
   const tabs = document.getElementById('mdServiceTabs');
   if (tabs) tabs.querySelectorAll('.md-service-tab').forEach(t => t.classList.toggle('active', t.getAttribute('data-cat') === cat));
 }
