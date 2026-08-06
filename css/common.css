@@ -1973,12 +1973,15 @@
   /* ===== Merchant Dashboard ===== */
   .merchant-hero { background: linear-gradient(135deg, var(--primary), #2f7fe0); color: #fff; padding: 28px 20px 24px; }
   .merchant-hero-title { font-size: 13px; opacity: 0.85; }
-  .merchant-hero-name { font-size: 22px; font-weight: 700; margin-top: 6px; }
+  .merchant-hero-name-row { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
+  .merchant-hero-name { font-size: 22px; font-weight: 700; margin-top: 0; }
   .merchant-hero-sub { font-size: 12px; opacity: 0.8; margin-top: 4px; }
   .merchant-clinic-switch { display: flex; align-items: center; gap: 6px; margin: 12px 16px 0; padding: 10px 14px; background: #fff; border-radius: var(--radius); box-shadow: var(--shadow); cursor: pointer; }
   .merchant-clinic-switch .mcs-label { font-size: 12px; color: var(--text-secondary); }
   .merchant-clinic-switch .mcs-name { font-size: 15px; font-weight: 600; color: var(--text); flex: 1; }
   .merchant-clinic-switch .mcs-arrow { font-size: 12px; color: var(--text-secondary); }
+  .merchant-clinic-switch.inline { display: inline-flex; margin: 0; padding: 3px 10px; background: rgba(255,255,255,0.18); border-radius: 20px; box-shadow: none; }
+  .merchant-clinic-switch.inline .mcs-arrow { color: #fff; font-size: 12px; }
   .clinic-switch-sheet { position: absolute; left: 0; right: 0; bottom: 0; background: #fff; border-radius: 16px 16px 0 0; padding: 8px 0 20px; max-height: 70vh; overflow-y: auto; animation: slideUp .2s ease; }
   .clinic-switch-head { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; font-size: 15px; font-weight: 600; color: var(--text); border-bottom: 1px solid var(--border); }
   .clinic-switch-close { font-size: 18px; color: var(--text-secondary); cursor: pointer; }

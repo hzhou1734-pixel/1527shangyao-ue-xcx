@@ -1764,7 +1764,14 @@ function renderClinicSwitch() {
   bar.style.display = '';
   const cid = (s.clinicId != null) ? s.clinicId : s.ids[0];
   const m = merchantsData.find(x => x.id === cid);
-  bar.innerHTML = '<span class="mcs-label">当前诊所</span><span class="mcs-name">' + (m ? m.name : ('诊所' + cid)) + '</span><span class="mcs-arrow">▾</span>';
+  const isHome = document.body.dataset.page === 'merchant';
+  if (isHome) {
+    bar.className = 'merchant-clinic-switch inline';
+    bar.innerHTML = '<span class="mcs-arrow">切换 ▾</span>';
+  } else {
+    bar.className = 'merchant-clinic-switch';
+    bar.innerHTML = '<span class="mcs-label">当前诊所</span><span class="mcs-name">' + (m ? m.name : ('诊所' + cid)) + '</span><span class="mcs-arrow">▾</span>';
+  }
   bar.onclick = openClinicSwitch;
   let modal = document.getElementById('clinicSwitchModal');
   if (!modal) {
