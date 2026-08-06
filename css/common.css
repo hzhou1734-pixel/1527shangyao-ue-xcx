@@ -677,6 +677,28 @@
     padding: 12px 0;
     border-bottom: 1px solid var(--border);
   }
+  .md-service-tabs {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 4px 0 10px;
+    margin-bottom: 4px;
+  }
+  .md-service-tab {
+    flex: 0 0 auto;
+    padding: 5px 14px;
+    border-radius: 16px;
+    background: var(--bg);
+    color: var(--text-secondary);
+    font-size: 13px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .md-service-tab.active {
+    background: var(--primary);
+    color: #fff;
+  }
   .nearby-merchant-item:last-child { border-bottom: none; }
   .nearby-merchant-avatar {
     width: 48px;
@@ -1106,7 +1128,7 @@
   }
   .appointment-item-info { flex: 1; }
   .appointment-item-drug { font-size: 15px; font-weight: 600; }
-  .appointment-item-merchant { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
+  .appointment-item-merchant { font-size: 14px; font-weight: 600; color: var(--text); margin-top: 4px; cursor: pointer; }
   .appointment-item-time { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
   .appointment-item-actions {
     display: flex;
@@ -1956,6 +1978,18 @@
   .merchant-hero-title { font-size: 13px; opacity: 0.85; }
   .merchant-hero-name { font-size: 22px; font-weight: 700; margin-top: 6px; }
   .merchant-hero-sub { font-size: 12px; opacity: 0.8; margin-top: 4px; }
+  .merchant-clinic-switch { display: flex; align-items: center; gap: 6px; margin: 12px 16px 0; padding: 10px 14px; background: #fff; border-radius: var(--radius); box-shadow: var(--shadow); cursor: pointer; }
+  .merchant-clinic-switch .mcs-label { font-size: 12px; color: var(--text-secondary); }
+  .merchant-clinic-switch .mcs-name { font-size: 15px; font-weight: 600; color: var(--text); flex: 1; }
+  .merchant-clinic-switch .mcs-arrow { font-size: 12px; color: var(--text-secondary); }
+  .clinic-switch-sheet { position: absolute; left: 0; right: 0; bottom: 0; background: #fff; border-radius: 16px 16px 0 0; padding: 8px 0 20px; max-height: 70vh; overflow-y: auto; animation: slideUp .2s ease; }
+  .clinic-switch-head { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; font-size: 15px; font-weight: 600; color: var(--text); border-bottom: 1px solid var(--border); }
+  .clinic-switch-close { font-size: 18px; color: var(--text-secondary); cursor: pointer; }
+  .clinic-switch-list { padding: 6px 0; }
+  .clinic-switch-item { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; font-size: 15px; color: var(--text); cursor: pointer; }
+  .clinic-switch-item:active { background: var(--bg); }
+  .clinic-switch-item.active { color: var(--primary); font-weight: 600; }
+  .clinic-switch-check { color: var(--primary); font-weight: 700; }
   .merchant-stat-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; margin: -16px 12px 12px; position: relative; }
   .merchant-stat-card { min-width: 0; background: #fff; border-radius: var(--radius); box-shadow: var(--shadow); padding: 10px 2px; text-align: center; }
   .merchant-stat-num { font-size: 20px; font-weight: 700; color: var(--primary); }

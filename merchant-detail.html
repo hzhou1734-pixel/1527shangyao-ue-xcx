@@ -40,6 +40,18 @@
 <div class="modal-overlay image-preview-overlay" id="imagePreviewModal" onclick="closeImagePreview()">
   <img class="image-preview-img" id="imagePreviewImg" src="" alt="预览大图" onclick="event.stopPropagation()">
 </div>
+
+<div class="modal-overlay" id="bookFirstModal" style="display:none;" onclick="if(event.target===this)closeBookFirstModal()">
+  <div class="modal-content">
+    <div class="modal-icon">📋</div>
+    <div class="modal-title">请先预约</div>
+    <div class="modal-desc">为保障到店服务体验，请先在线预约，再到店导航或电话咨询。</div>
+    <div class="modal-btns">
+      <button class="modal-btn modal-btn-secondary" onclick="closeBookFirstModal()">取消</button>
+      <button class="modal-btn modal-btn-primary" onclick="confirmBookFirst()">继续</button>
+    </div>
+  </div>
+</div>
 <div class="page active" id="merchantDetailPage">
     <div class="nav-bar" style="background:transparent;position:absolute;top:0;left:0;right:0;z-index:100;">
       <div class="back-btn" onclick="goBack()" style="background:rgba(0,0,0,0.3);">
@@ -56,7 +68,6 @@
       <div class="merchant-detail-row">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
         <span>浦东新区张杨路500号</span>
-        <a href="javascript:void(0)" style="margin-left:auto;" onclick="navigateTo()">导航</a>
       </div>
       <div class="merchant-detail-row">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
@@ -66,16 +77,12 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
         <span>营业时间：08:30 - 21:30</span>
       </div>
-      <div class="merchant-detail-row">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
-        <span id="merchantBizCats">—</span>
-      </div>
       <div class="merchant-detail-actions">
-        <button class="action-btn action-btn-nav" onclick="navigateTo()">
+        <button class="action-btn action-btn-nav" onclick="guardAppointment('nav')">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
           一键导航
         </button>
-        <button class="action-btn action-btn-call" onclick="callMerchant()">
+        <button class="action-btn action-btn-call" onclick="guardAppointment('call')">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
           拨打电话
         </button>
@@ -95,7 +102,7 @@
     </div>
 
     <div class="nearby-merchant-section" style="margin:10px 16px;border-radius:var(--radius);">
-      <div class="drug-info-title">在售服务</div>
+      <div class="drug-info-title">在约服务</div>
       <div class="nearby-merchant-item" onclick="goDrugDetail(1)">
         <div class="nearby-merchant-avatar"><img src="images/drug1.jpg" alt=""></div>
         <div class="nearby-merchant-info">
