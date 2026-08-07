@@ -671,6 +671,7 @@ function renderAllDrugs() {
       + '<div class="all-drug-img" style="background:' + bg + ';display:flex;align-items:center;justify-content:center;font-size:28px;overflow:hidden;">' + imgHtml + '</div>'
       + '<div class="all-drug-info">'
       + '<div class="all-drug-name">' + d.name + '</div>'
+      + '<div class="all-drug-meta">' + (d.spec || '') + (d.spec2 ? ' · ' + d.spec2 : '') + '</div>'
       + '<div class="all-drug-bottom"><span class="all-drug-price">' + priceTxt + '</span><span class="all-drug-stock">' + d.stock + '</span></div>'
       + '</div></div>';
   }).join('');

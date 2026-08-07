@@ -1744,6 +1744,14 @@
     text-overflow: ellipsis;
     white-space: nowrap;
   }
+  .all-drug-meta {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
   .all-drug-spec {
     font-size: 12px;
     color: var(--text-secondary);

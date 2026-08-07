@@ -1,5 +1,8 @@
 # 更新记录
 
+## [1.0.40] - 2026-08-07
+- 全部服务页（附近服务 >> 查看更多）商品列表：补上「厂家 · 规格」一行（renderAllDrugs 新增 .all-drug-meta，取 d.spec + d.spec2）；新增对应 CSS 样式
+
 ## [1.0.39] - 2026-08-07
 - 服务详情页底部「附近有货诊所」→「附近有货机构」（含「按距离由近到远」副文案）；同步 drug-detail.html / js/app.js / pages_raw/drugDetailPage.html / js/app.raw.js / _split/build.py
 
