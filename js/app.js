@@ -530,7 +530,7 @@ function renderFeaturedDrugs() {
     card.innerHTML =
       '<div class="drug-card-img" style="background:' + bg + ';">' + imgHtml + '</div>' +
       '<div class="drug-card-info">' +
-        '<div class="drug-card-name">' + d.name + '</div>' +
+        '<div class="drug-card-name">' + d.name + SERVICE_TITLE_SUFFIX + '</div>' +
         '<div class="drug-card-spec">' + d.spec + (d.spec2 ? ' · ' + d.spec2 : '') + '</div>' +
         '<div class="drug-card-bottom">' +
           '<div class="drug-card-price">' + (PLATFORM_SETTINGS.priceVisible ? ('<span class="yen">¥</span>' + (PRODUCT_PRICE_MAP[d.id] ? (PRODUCT_PRICE_MAP[d.id].min + ' - ' + PRODUCT_PRICE_MAP[d.id].suggested) : '--')) : '<span class="price-hidden">价格已隐藏</span>') + '</div>' +
@@ -567,7 +567,7 @@ function renderDrugDetail(id) {
       imgEl.style.background = drug.emojiBg || 'var(--primary-light)';
     }
   }
-  const nEl = document.getElementById('drugDetailName'); if (nEl) nEl.textContent = drug.name;
+  const nEl = document.getElementById('drugDetailName'); if (nEl) nEl.innerHTML = escHtml(drug.name) + SERVICE_TITLE_SUFFIX;
   const sEl = document.getElementById('drugDetailSpec'); if (sEl) sEl.textContent = drug.spec;
   const s2El = document.getElementById('drugDetailSpec2'); if (s2El) s2El.textContent = drug.spec2;
   const priceEl = document.getElementById('drugDetailPrice');
@@ -619,6 +619,8 @@ function renderDrugDetail(id) {
 
 // 购药流程副标题（mock 文本，后续接真实接口替换）
 const DRUG_DETAIL_SUBTITLE = '服务流程：提交预约单—联系诊所—预约服务';
+// 所有服务标题统一后缀
+const SERVICE_TITLE_SUFFIX = '<span class="svc-suffix">+ 取药服务预约</span>';
 function renderDrugDetailFlow() {
   const el = document.getElementById('drugDetailSub');
   if (el) el.textContent = DRUG_DETAIL_SUBTITLE;
@@ -670,7 +672,7 @@ function renderAllDrugs() {
     return '<div class="all-drug-item" data-id="' + d.id + '" data-category="' + d.category + '" data-distance="' + minDist + '" data-stock="' + stock + '" onclick="goDrugDetail(' + d.id + ')">'
       + '<div class="all-drug-img" style="background:' + bg + ';display:flex;align-items:center;justify-content:center;font-size:28px;overflow:hidden;">' + imgHtml + '</div>'
       + '<div class="all-drug-info">'
-      + '<div class="all-drug-name">' + d.name + '</div>'
+      + '<div class="all-drug-name">' + d.name + SERVICE_TITLE_SUFFIX + '</div>'
       + '<div class="all-drug-meta">' + (d.spec || '') + (d.spec2 ? ' · ' + d.spec2 : '') + '</div>'
       + '<div class="all-drug-bottom"><span class="all-drug-price">' + priceTxt + '</span><span class="all-drug-stock">' + d.stock + '</span></div>'
       + '</div></div>';
@@ -744,7 +746,7 @@ function renderMerchantServiceList(cat) {
     html += '<div class="nearby-merchant-item" onclick="goDrugDetail(' + d.id + ')">'
       + imgHtml
       + '<div class="nearby-merchant-info">'
-      + '<div class="nearby-merchant-name">' + d.name + '</div>'
+      + '<div class="nearby-merchant-name">' + d.name + SERVICE_TITLE_SUFFIX + '</div>'
       + '<div class="nearby-merchant-addr">' + d.spec + ' · ' + d.spec2 + '</div>'
       + (priceTxt ? '<div class="nearby-merchant-price">' + priceTxt + '</div>' : '')
       + '</div>'
@@ -986,7 +988,7 @@ function renderSearchResults() {
         : '<div style="width:60px;height:60px;border-radius:8px;background:' + (d.emojiBg || 'var(--primary-light)') + ';display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:28px;">' + (d.emoji || '💊') + '</div>';
       html += '<div style="display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);cursor:pointer;" onclick="goDrugDetail(' + d.id + ')">'
         + imgHtml
-        + '<div style="flex:1;"><div style="font-weight:600;">' + d.name + '</div>'
+        + '<div style="flex:1;"><div style="font-weight:600;">' + d.name + SERVICE_TITLE_SUFFIX + '</div>'
         + '<div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">' + d.spec + ' · ' + d.spec2 + '</div>'
         + '<div style="font-size:12px;color:var(--primary);margin-top:4px;">' + d.stock + (PLATFORM_SETTINGS.priceVisible && PRODUCT_PRICE_MAP[d.id] ? ' · ' + priceRangeOf(d.id).text : '') + '</div>'
         + '</div></div>';
@@ -1055,7 +1057,7 @@ function prefillAppointment() {
         : '<span style="font-size:34px;">' + (d.emoji || '💊') + '</span>';
       cardWrap.innerHTML = '<div class="appt-drug-card">'
         + '<div class="appt-drug-img" style="background:' + bg + ';">' + imgHtml + '</div>'
-        + '<div class="appt-drug-info"><div class="appt-drug-name">' + d.name + '</div>'
+        + '<div class="appt-drug-info"><div class="appt-drug-name">' + d.name + SERVICE_TITLE_SUFFIX + '</div>'
         + '<div class="appt-drug-spec">' + (d.spec || '') + ' · ' + (d.spec2 || '') + '</div>'
         + '<div class="appt-drug-price" id="apptDrugPrice"></div>'
         + '</div></div>';
