@@ -594,7 +594,7 @@ function renderDrugDetail(id) {
   if (nearbySection) {
     const availableMerchants = merchantsData.filter(m => drug.merchants && drug.merchants.includes(m.id))
       .slice().sort((a, b) => (a.distNum || 99) - (b.distNum || 99));
-    let html = '<div class="drug-info-title">附近有货诊所（按距离由近到远）</div>';
+    let html = '<div class="drug-info-title">附近有货机构（按距离由近到远）</div>';
     availableMerchants.forEach(m => {
       const avatar = m.hero
         ? '<div class="nearby-merchant-avatar"><img src="' + m.hero + '" alt=""></div>'

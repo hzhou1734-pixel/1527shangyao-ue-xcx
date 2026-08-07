@@ -1,5 +1,8 @@
 # 更新记录
 
+## [1.0.39] - 2026-08-07
+- 服务详情页底部「附近有货诊所」→「附近有货机构」（含「按距离由近到远」副文案）；同步 drug-detail.html / js/app.js / pages_raw/drugDetailPage.html / js/app.raw.js / _split/build.py
+
 ## [1.0.38] - 2026-08-06
 - 首页附近服务卡片价格：`.drug-card-price` 字号由 12px 增至 16px（¥符号 9px→13px）
 

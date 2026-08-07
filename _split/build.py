@@ -146,7 +146,7 @@ oldC = """function goDrugDetail(id) {
   const nearbySection = document.querySelector('#drugDetailPage .nearby-merchant-section');
   const nearbyItems = nearbySection.querySelectorAll('.nearby-merchant-item');
   const availableMerchants = merchantsData.filter(m => drug.merchants && drug.merchants.includes(m.id));
-  let html = '<div class="drug-info-title">附近有货诊所</div>';
+  let html = '<div class="drug-info-title">附近有货机构</div>';
   availableMerchants.forEach(m => {
     html += '<div class="nearby-merchant-item" onclick="goMerchantDetail(' + m.id + ')">'
       + '<div class="nearby-merchant-avatar">' + m.icon + '</div>'
@@ -195,7 +195,7 @@ function renderDrugDetail(id) {
   const nearbySection = document.querySelector('#drugDetailPage .nearby-merchant-section');
   if (nearbySection) {
     const availableMerchants = merchantsData.filter(m => drug.merchants && drug.merchants.includes(m.id));
-    let html = '<div class="drug-info-title">附近有货诊所</div>';
+    let html = '<div class="drug-info-title">附近有货机构</div>';
     availableMerchants.forEach(m => {
       html += '<div class="nearby-merchant-item" onclick="goMerchantDetail(' + m.id + ')">'
         + '<div class="nearby-merchant-avatar">' + m.icon + '</div>'
